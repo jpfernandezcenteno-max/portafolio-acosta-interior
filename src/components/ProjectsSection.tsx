@@ -5,9 +5,8 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import { projects } from "@/data/projects";
 import { Project } from "@/types";
 import { ProjectModal } from "./ProjectModal";
-import { ArrowRight } from "lucide-react";
 
-function ProjectStrip({
+function ProjectCard({
   project,
   index,
   onOpen,
@@ -16,140 +15,80 @@ function ProjectStrip({
   index: number;
   onOpen: () => void;
 }) {
-  const stripRef = useRef<HTMLElement>(null);
-  const coverRef = useRef<HTMLImageElement>(null);
-  const innerWrapRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLImageElement>(null);
-  const arrowRef = useRef<SVGSVGElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const hoverImgRef = useRef<HTMLImageElement>(null);
+  const captionRef = useRef<HTMLDivElement>(null);
+
+  /* portrait for 0,2 — landscape for 1,3 */
+  const isPortrait = index % 2 === 0;
 
   const onMouseEnter = () => {
-    gsap.to(coverRef.current, { scale: 1.04, duration: 0.9, ease: "power2.out" });
-    gsap.to(innerWrapRef.current, { y: -6, duration: 0.7, ease: "power2.out" });
-    gsap.to(innerRef.current, { scale: 1.06, duration: 0.9, ease: "power2.out" });
-    gsap.to(arrowRef.current, { x: 6, duration: 0.4, ease: "power2.out" });
+    gsap.to(hoverImgRef.current, { opacity: 1, duration: 0.55, ease: "power2.inOut" });
+    gsap.to(captionRef.current, { color: "var(--color-primary)", duration: 0.3 });
   };
 
   const onMouseLeave = () => {
-    gsap.to(coverRef.current, { scale: 1, duration: 0.9, ease: "power2.out" });
-    gsap.to(innerWrapRef.current, { y: 0, duration: 0.7, ease: "power2.out" });
-    gsap.to(innerRef.current, { scale: 1, duration: 0.9, ease: "power2.out" });
-    gsap.to(arrowRef.current, { x: 0, duration: 0.4, ease: "power2.out" });
+    gsap.to(hoverImgRef.current, { opacity: 0, duration: 0.55, ease: "power2.inOut" });
+    gsap.to(captionRef.current, { color: "var(--color-dark)", duration: 0.3 });
   };
 
-  const isReversed = index % 2 !== 0;
-
-  const textPanel = (
-    <div className="flex flex-col justify-center px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20">
-      <div className="project-text-reveal">
-        <p
-          className="font-serif font-light text-primary/12 leading-none select-none mb-2 md:mb-4"
-          style={{ fontSize: "clamp(5rem, 12vw, 10rem)" }}
-          aria-hidden="true"
-        >
-          {String(index + 1).padStart(2, "0")}
-        </p>
-
-        <p className="font-sans text-[0.57rem] tracking-[0.45em] uppercase text-primary mb-5">
-          {project.category}
-        </p>
-
-        <h3
-          className="font-serif font-light text-dark leading-[1.05] mb-6"
-          style={{ fontSize: "clamp(1.9rem, 3.5vw, 3.2rem)" }}
-        >
-          {project.title}
-        </h3>
-
-        <p className="font-sans text-[0.82rem] font-light text-dark/50 leading-[1.85] max-w-sm mb-8">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-10">
-          {project.tags?.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="font-sans text-[0.55rem] tracking-wider uppercase text-primary/60 border border-primary/20 px-2.5 py-1"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between pt-5 border-t border-dark/8 max-w-sm">
-          <span className="font-sans text-[0.62rem] tracking-[0.25em] uppercase text-dark/30">
-            {project.year}
-          </span>
-          <button
-            onClick={onOpen}
-            className="group inline-flex items-center gap-3 font-sans text-[0.6rem] tracking-[0.32em] uppercase text-dark/55 hover:text-primary transition-colors duration-300"
-          >
-            Ver proyecto
-            <ArrowRight
-              ref={arrowRef}
-              size={11}
-              className="flex-shrink-0"
-            />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
-  const imagePanel = (
-    <div
-      className="relative overflow-hidden"
-      style={{ minHeight: "clamp(380px, 60vh, 760px)" }}
+  return (
+    <article
+      className={`flex flex-col cursor-pointer group ${isPortrait ? "" : "mt-0 md:mt-[18%]"}`}
+      onClick={onOpen}
       data-cursor-hover
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {/* Cover image */}
-      <div className="project-reveal-image absolute inset-0">
+      {/* Image container */}
+      <div
+        ref={wrapRef}
+        className="project-reveal-image relative overflow-hidden w-full"
+        style={{ aspectRatio: isPortrait ? "3 / 4" : "4 / 3" }}
+      >
+        {/* Cover image */}
         <img
-          ref={coverRef}
           src={project.coverImage}
           alt={project.title}
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-secondary/8" />
+        {/* Hover image — crossfade */}
+        <img
+          ref={hoverImgRef}
+          src={project.images?.[0] ?? project.coverImage}
+          alt={`${project.title} — detalle`}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0 }}
+          loading="lazy"
+        />
       </div>
 
-      {/* Inset detail image */}
-      {project.images?.[0] && (
-        <div
-          ref={innerWrapRef}
-          className="absolute bottom-6 left-6 w-[38%] max-w-[180px] shadow-lg overflow-hidden z-10"
-          style={{ aspectRatio: "3/4" }}
-        >
-          <img
-            ref={innerRef}
-            src={project.images[0]}
-            alt={`${project.title} — detalle`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+      {/* Caption */}
+      <div ref={captionRef} className="project-text-reveal mt-4 md:mt-5">
+        <div className="flex items-baseline gap-0">
+          <span
+            className="font-serif font-light text-primary leading-none flex-shrink-0"
+            style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)" }}
+          >
+            {String(index + 1).padStart(2, "0")}.&nbsp;
+          </span>
+          <div>
+            <p
+              className="font-serif font-light text-dark leading-snug"
+              style={{ fontSize: "clamp(0.85rem, 1.3vw, 1.1rem)" }}
+            >
+              {project.title.split(" ").slice(0, Math.ceil(project.title.split(" ").length / 2)).join(" ")}
+            </p>
+            <p
+              className="font-serif font-light text-dark/70 leading-snug"
+              style={{ fontSize: "clamp(0.85rem, 1.3vw, 1.1rem)" }}
+            >
+              {project.title.split(" ").slice(Math.ceil(project.title.split(" ").length / 2)).join(" ")}
+            </p>
+          </div>
         </div>
-      )}
-    </div>
-  );
-
-  return (
-    <article
-      ref={stripRef}
-      className="grid grid-cols-1 lg:grid-cols-2 border-b border-primary/10"
-    >
-      {isReversed ? (
-        <>
-          {imagePanel}
-          {textPanel}
-        </>
-      ) : (
-        <>
-          {textPanel}
-          {imagePanel}
-        </>
-      )}
+      </div>
     </article>
   );
 }
@@ -161,29 +100,31 @@ export function ProjectsSection() {
   useGSAP(
     () => {
       const images = gsap.utils.toArray<HTMLElement>(".project-reveal-image");
-      images.forEach((img) => {
+      images.forEach((img, i) => {
         gsap.from(img, {
           clipPath: "inset(0 100% 0 0)",
-          duration: 1.5,
+          duration: 1.4,
+          delay: i * 0.12,
           ease: "power3.inOut",
           scrollTrigger: {
             trigger: img,
-            start: "top 82%",
+            start: "top 85%",
             once: true,
           },
         });
       });
 
       const textBlocks = gsap.utils.toArray<HTMLElement>(".project-text-reveal");
-      textBlocks.forEach((block) => {
+      textBlocks.forEach((block, i) => {
         gsap.from(block, {
           opacity: 0,
-          y: 28,
-          duration: 0.9,
+          y: 18,
+          delay: i * 0.1,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
             trigger: block,
-            start: "top 85%",
+            start: "top 90%",
             once: true,
           },
         });
@@ -191,7 +132,7 @@ export function ProjectsSection() {
 
       gsap.from(".projects-header", {
         opacity: 0,
-        y: 32,
+        y: 28,
         duration: 1,
         ease: "power3.out",
         scrollTrigger: {
@@ -227,15 +168,19 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* Project strips */}
-        {projects.map((project, index) => (
-          <ProjectStrip
-            key={project.id}
-            project={project}
-            index={index}
-            onOpen={() => setSelectedProject(project)}
-          />
-        ))}
+        {/* Project grid */}
+        <div className="max-w-[1440px] mx-auto px-8 md:px-14 lg:px-20 py-16 md:py-24 lg:py-32">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 md:gap-x-7 lg:gap-x-9 gap-y-12 md:gap-y-0 items-end">
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onOpen={() => setSelectedProject(project)}
+              />
+            ))}
+          </div>
+        </div>
       </section>
 
       {selectedProject && (
