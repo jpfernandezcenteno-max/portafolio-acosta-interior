@@ -1,0 +1,84 @@
+import { Project } from "@/types";
+
+export const projects: Project[] = [
+  {
+    id: "casa-miraflores",
+    title: "Casa Miraflores",
+    year: "2024",
+    category: "Residencial",
+    description:
+      "Vivienda unifamiliar en Lima con énfasis en materiales naturales y luz natural. El proyecto explora la relación entre los espacios interiores y el jardín circundante, creando una continuidad fluida entre adentro y afuera.",
+    coverImage: "https://picsum.photos/seed/mir0/1400/900",
+    images: [
+      "https://picsum.photos/seed/mir1/1400/900",
+      "https://picsum.photos/seed/mir2/1400/900",
+      "https://picsum.photos/seed/mir3/1400/900",
+      "https://picsum.photos/seed/mir4/1400/900",
+      "https://picsum.photos/seed/mir5/1400/900",
+      "https://picsum.photos/seed/mir6/1400/900",
+      "https://picsum.photos/seed/mir7/1400/900",
+      "https://picsum.photos/seed/mir8/1400/900",
+    ],
+    tags: ["Luz natural", "Materiales naturales", "Lima"],
+  },
+  {
+    id: "oficinas-palomino",
+    title: "Oficinas Palomino",
+    year: "2023",
+    category: "Comercial",
+    description:
+      "Espacio de trabajo colaborativo para una empresa creativa en el centro de Lima. El diseño integra zonas de trabajo abierto, cabinas privadas y áreas de descanso bajo un concepto de fluidez espacial.",
+    coverImage: "https://picsum.photos/seed/pal0/1400/900",
+    images: [
+      "https://picsum.photos/seed/pal1/1400/900",
+      "https://picsum.photos/seed/pal2/1400/900",
+      "https://picsum.photos/seed/pal3/1400/900",
+      "https://picsum.photos/seed/pal4/1400/900",
+      "https://picsum.photos/seed/pal5/1400/900",
+      "https://picsum.photos/seed/pal6/1400/900",
+      "https://picsum.photos/seed/pal7/1400/900",
+      "https://picsum.photos/seed/pal8/1400/900",
+    ],
+    tags: ["Corporativo", "Open space", "Diseño colaborativo"],
+  },
+  {
+    id: "loft-barranco",
+    title: "Loft Barranco",
+    year: "2023",
+    category: "Residencial",
+    description:
+      "Rehabilitación de un espacio industrial en el distrito de Barranco. La intervención conserva la estructura original de ladrillo expuesto y vigas de acero, integrando nuevas capas de materialidad contemporánea.",
+    coverImage: "https://picsum.photos/seed/bar0/1400/900",
+    images: [
+      "https://picsum.photos/seed/bar1/1400/900",
+      "https://picsum.photos/seed/bar2/1400/900",
+      "https://picsum.photos/seed/bar3/1400/900",
+      "https://picsum.photos/seed/bar4/1400/900",
+      "https://picsum.photos/seed/bar5/1400/900",
+      "https://picsum.photos/seed/bar6/1400/900",
+      "https://picsum.photos/seed/bar7/1400/900",
+      "https://picsum.photos/seed/bar8/1400/900",
+    ],
+    tags: ["Loft", "Industrial", "Rehabilitación"],
+  },
+  {
+    id: "galeria-norte",
+    title: "Galería Norte",
+    year: "2024",
+    category: "Conceptual",
+    description:
+      "Proyecto conceptual para una galería de arte contemporáneo. El espacio propone una secuencia de ambientes que guía al visitante en un recorrido sensorial, donde la arquitectura se convierte en el marco perfecto para la obra expuesta.",
+    coverImage: "https://picsum.photos/seed/gal0/1400/900",
+    images: [
+      "https://picsum.photos/seed/gal1/1400/900",
+      "https://picsum.photos/seed/gal2/1400/900",
+      "https://picsum.photos/seed/gal3/1400/900",
+      "https://picsum.photos/seed/gal4/1400/900",
+      "https://picsum.photos/seed/gal5/1400/900",
+      "https://picsum.photos/seed/gal6/1400/900",
+      "https://picsum.photos/seed/gal7/1400/900",
+      "https://picsum.photos/seed/gal8/1400/900",
+    ],
+    tags: ["Galería", "Arte contemporáneo", "Conceptual"],
+  },
+];
