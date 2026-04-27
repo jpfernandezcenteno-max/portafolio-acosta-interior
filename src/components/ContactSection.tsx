@@ -7,21 +7,21 @@ import { Mail, Linkedin, Instagram } from "lucide-react";
 const socials = [
   {
     label: "Email",
-    href: "mailto:valentina.acosta@ejemplo.com",
+    href: "mailto:contacto@acostainterior.com",
     icon: Mail,
-    display: "valentina.acosta@ejemplo.com",
+    display: "contacto@acostainterior.com",
   },
   {
     label: "LinkedIn",
     href: "https://linkedin.com",
     icon: Linkedin,
-    display: "in/valentina-acosta",
+    display: "in/acosta-interior",
   },
   {
     label: "Instagram",
     href: "https://instagram.com",
     icon: Instagram,
-    display: "@valentina.acosta.id",
+    display: "@acosta.interior",
   },
 ];
 
@@ -34,7 +34,7 @@ export function ContactSection() {
       gsap.from(dividerRef.current, {
         scaleX: 0,
         transformOrigin: "left center",
-        duration: 1.4,
+        duration: 1.5,
         ease: "power3.inOut",
         scrollTrigger: {
           trigger: dividerRef.current,
@@ -45,7 +45,7 @@ export function ContactSection() {
 
       gsap.from(".contact-content", {
         opacity: 0,
-        y: 40,
+        y: 36,
         stagger: 0.1,
         duration: 0.9,
         ease: "power3.out",
@@ -58,8 +58,8 @@ export function ContactSection() {
 
       gsap.from(".contact-link", {
         opacity: 0,
-        y: 20,
-        stagger: 0.12,
+        y: 18,
+        stagger: 0.13,
         duration: 0.7,
         ease: "power3.out",
         scrollTrigger: {
@@ -74,33 +74,37 @@ export function ContactSection() {
 
   return (
     <footer id="contacto" ref={sectionRef} className="bg-light">
-      {/* Divider */}
-      <div ref={dividerRef} className="h-[1px] bg-primary/20 mx-8 md:mx-16" />
+      {/* Animated divider */}
+      <div
+        ref={dividerRef}
+        className="h-[1px] bg-primary/20"
+        style={{ margin: "0 clamp(1.5rem, 5vw, 5rem)" }}
+      />
 
-      <div className="px-8 md:px-16 pt-20 pb-16 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-end">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-14 md:pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 lg:gap-32 items-start">
+
           {/* Left — CTA */}
           <div>
-            <p className="contact-content font-sans text-[0.62rem] tracking-[0.45em] uppercase text-primary mb-6">
+            <p className="contact-content font-sans text-[0.6rem] tracking-[0.48em] uppercase text-primary mb-7">
               Contacto
             </p>
             <h2
-              className="contact-content font-serif font-light text-dark leading-tight mb-6"
-              style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)" }}
+              className="contact-content font-serif font-light text-dark leading-[1.1] mb-7"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.6rem)" }}
             >
               ¿Tienes un proyecto
               <br />
               <em>en mente?</em>
             </h2>
-            <p className="contact-content font-sans font-light text-dark/55 text-[0.88rem] leading-relaxed max-w-sm">
-              Estoy disponible para proyectos académicos, colaboraciones y
-              prácticas profesionales. Hablemos sobre cómo puedo contribuir
-              a tu visión.
+            <p className="contact-content font-sans font-light text-dark/50 text-[0.87rem] leading-[1.85] max-w-xs">
+              Estamos disponibles para proyectos residenciales, comerciales y
+              conceptuales. Hablemos sobre cómo podemos transformar tu espacio.
             </p>
           </div>
 
-          {/* Right — Links */}
-          <div className="space-y-6">
+          {/* Right — Social links */}
+          <div className="space-y-7 pt-1">
             {socials.map(({ label, href, icon: Icon, display }) => (
               <a
                 key={label}
@@ -108,28 +112,31 @@ export function ContactSection() {
                 target={label !== "Email" ? "_blank" : undefined}
                 rel={label !== "Email" ? "noopener noreferrer" : undefined}
                 aria-label={label}
-                className="contact-link group flex items-center gap-5 text-dark/60 hover:text-primary transition-colors duration-300"
+                className="contact-link group flex items-center gap-5 text-dark/55 hover:text-primary transition-colors duration-300"
               >
-                <span className="w-9 h-9 flex items-center justify-center border border-dark/15 group-hover:border-primary transition-colors duration-300 flex-shrink-0">
-                  <Icon size={14} />
+                <span className="w-10 h-10 flex items-center justify-center border border-dark/12 group-hover:border-primary group-hover:bg-primary/5 transition-all duration-300 flex-shrink-0">
+                  <Icon size={14} strokeWidth={1.5} />
                 </span>
                 <div>
-                  <p className="font-sans text-[0.58rem] tracking-[0.35em] uppercase text-primary/60 mb-0.5">
+                  <p className="font-sans text-[0.57rem] tracking-[0.38em] uppercase text-primary/55 mb-1 group-hover:text-primary transition-colors duration-300">
                     {label}
                   </p>
-                  <p className="font-sans text-[0.83rem]">{display}</p>
+                  <p className="font-sans text-[0.85rem] text-dark/70 group-hover:text-dark transition-colors duration-300">
+                    {display}
+                  </p>
                 </div>
               </a>
             ))}
           </div>
+
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-20 pt-6 border-t border-dark/8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-          <p className="font-serif italic text-dark/25 text-sm">
-            Valentina Acosta — Diseño de Interiores
+        <div className="mt-20 md:mt-24 pt-6 border-t border-dark/8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="font-serif italic text-dark/22 text-sm">
+            Acosta Interior — Estudio de Diseño de Interiores
           </p>
-          <p className="font-sans text-[0.62rem] tracking-widest uppercase text-dark/20">
+          <p className="font-sans text-[0.58rem] tracking-[0.3em] uppercase text-dark/18">
             Lima, Perú · 2024
           </p>
         </div>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { Menu, X } from "lucide-react";
 
 const links = [
   { label: "Inicio", href: "#inicio" },
@@ -12,6 +13,7 @@ const links = [
 
 export function Navbar() {
   const navRef = useRef<HTMLElement>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useGSAP(() => {
     gsap.set(navRef.current, { y: -80, opacity: 0 });
@@ -26,12 +28,10 @@ export function Navbar() {
     });
   });
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleClick = (href: string) => {
+    setMobileOpen(false);
     const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+    if (target) target.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -39,28 +39,69 @@ export function Navbar() {
       ref={navRef}
       role="navigation"
       aria-label="Navegación principal"
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 md:px-14 py-5 bg-light/90 backdrop-blur-sm border-b border-secondary/60"
+      className="fixed top-0 left-0 right-0 z-50 bg-light/94 backdrop-blur-md border-b border-secondary"
     >
-      <a
-        href="#inicio"
-        onClick={(e) => handleClick(e, "#inicio")}
-        className="font-serif text-xl font-light tracking-widest text-dark hover:text-primary transition-colors duration-300"
-        aria-label="Valentina Acosta — Inicio"
-      >
-        VA
-      </a>
+      {/* Main bar */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 h-[62px] flex items-center justify-between">
+        {/* Logo wordmark */}
+        <a
+          href="#inicio"
+          onClick={(e) => { e.preventDefault(); handleClick("#inicio"); }}
+          aria-label="Acosta Interior — Inicio"
+          className="flex flex-col leading-none group"
+        >
+          <span className="font-serif text-[1.05rem] font-light tracking-[0.22em] text-dark group-hover:text-primary transition-colors duration-300">
+            Acosta
+          </span>
+          <span className="font-sans text-[0.48rem] tracking-[0.55em] uppercase text-primary/70 group-hover:text-primary transition-colors duration-300 -mt-0.5">
+            Interior
+          </span>
+        </a>
 
-      <div className="hidden md:flex items-center gap-10">
-        {links.map(({ label, href }) => (
-          <a
-            key={href}
-            href={href}
-            onClick={(e) => handleClick(e, href)}
-            className="font-sans text-[0.65rem] tracking-[0.25em] uppercase text-dark/50 hover:text-primary transition-colors duration-300"
-          >
-            {label}
-          </a>
-        ))}
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-10">
+          {links.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={(e) => { e.preventDefault(); handleClick(href); }}
+              className="font-sans text-[0.63rem] tracking-[0.28em] uppercase text-dark/45 hover:text-primary transition-colors duration-300"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setMobileOpen((v) => !v)}
+          className="md:hidden w-9 h-9 flex items-center justify-center text-dark/60 hover:text-primary transition-colors duration-200"
+          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X size={17} /> : <Menu size={17} />}
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileOpen ? "max-h-64 border-t border-secondary" : "max-h-0"
+        }`}
+      >
+        <div className="max-w-[1440px] mx-auto px-6 py-5 space-y-1 bg-light">
+          {links.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              onClick={(e) => { e.preventDefault(); handleClick(href); }}
+              className="flex items-center gap-3 font-sans text-[0.7rem] tracking-[0.3em] uppercase text-dark/55 hover:text-primary transition-colors duration-200 py-2.5 border-b border-secondary/50 last:border-0"
+            >
+              <span className="w-3 h-[1px] bg-primary/40 flex-shrink-0" />
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
     </nav>
   );

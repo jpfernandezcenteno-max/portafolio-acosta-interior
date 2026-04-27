@@ -17,9 +17,9 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Valentina Acosta — Diseño de Interiores",
+  title: "Acosta Interior — Estudio de Diseño de Interiores",
   description:
-    "Portafolio de diseño de interiores. Espacios que narran quiénes somos.",
+    "Portafolio de Acosta Interior. Diseño de interiores que transforma espacios en Lima, Perú.",
 };
 
 export default function RootLayout({

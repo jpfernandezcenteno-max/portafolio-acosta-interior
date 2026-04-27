@@ -44,7 +44,7 @@ function ProjectLayoutA({
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-end h-full px-8 md:px-16 pb-14 md:pb-20">
+      <div className="relative z-10 flex flex-col justify-end h-full px-6 md:px-12 lg:px-20 pb-12 md:pb-20">
         <div className="project-text-reveal max-w-2xl">
           <p className="font-sans text-[0.58rem] tracking-[0.45em] uppercase text-accent mb-4">
             {String(index + 1).padStart(2, "0")} &nbsp;/&nbsp; {project.category}
@@ -101,7 +101,7 @@ function ProjectLayoutB({
     gsap.to(imageRef.current, { scale: 1, duration: 0.8, ease: "power2.out" });
 
   const textPanel = (
-    <div className="flex flex-col justify-center px-8 md:px-14 py-16 md:py-20 bg-[#141412]">
+    <div className="flex flex-col justify-center px-8 md:px-12 lg:px-16 py-14 md:py-20 bg-[#141412]">
       <div className="project-text-reveal max-w-sm">
         <p className="font-sans text-[0.58rem] tracking-[0.45em] uppercase text-accent mb-5">
           {String(index + 1).padStart(2, "0")} &nbsp;/&nbsp; {project.category}
@@ -232,20 +232,22 @@ export function ProjectsSection() {
     <>
       <section id="proyectos" ref={sectionRef} className="bg-dark">
         {/* Section header */}
-        <div className="projects-header px-8 md:px-16 pt-24 pb-16 border-b border-light/5">
-          <p className="font-sans text-[0.62rem] tracking-[0.45em] uppercase text-accent mb-5">
-            Proyectos
-          </p>
-          <div className="flex items-end justify-between gap-4 flex-wrap">
-            <h2
-              className="font-serif font-light text-light leading-none"
-              style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
-            >
-              Trabajo seleccionado
-            </h2>
-            <span className="font-sans text-[0.65rem] text-light/25 tracking-widest">
-              2023 — 2024
-            </span>
+        <div className="projects-header border-b border-light/5">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-14 md:pb-16">
+            <p className="font-sans text-[0.6rem] tracking-[0.48em] uppercase text-accent mb-5">
+              Proyectos
+            </p>
+            <div className="flex items-end justify-between gap-4 flex-wrap">
+              <h2
+                className="font-serif font-light text-light leading-none"
+                style={{ fontSize: "clamp(2.4rem, 5vw, 4.5rem)" }}
+              >
+                Trabajo seleccionado
+              </h2>
+              <span className="font-sans text-[0.6rem] text-light/22 tracking-[0.2em] uppercase">
+                2023 — 2024
+              </span>
+            </div>
           </div>
         </div>
 
