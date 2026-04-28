@@ -60,25 +60,46 @@ export function ProjectsSection() {
         <div className="site-pad section-space">
 
           {/* Header */}
-          <div className="proj-header mb-12 md:mb-16">
-            <p className="font-sans text-[0.5rem] tracking-[0.52em] uppercase text-primary mb-3">
-              Portafolio
-            </p>
-            <h2
-              className="font-serif font-light text-dark leading-none"
-              style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}
-            >
-              Nuestros Proyectos
-            </h2>
+          <div className="proj-header mb-16 md:mb-22 flex items-end justify-between gap-8">
+            <div>
+              <p className="font-sans text-[0.5rem] tracking-[0.52em] uppercase text-primary mb-3">
+                Portafolio
+              </p>
+              <h2
+                className="font-serif font-light text-dark leading-none"
+                style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}
+              >
+                Nuestros Proyectos
+              </h2>
+            </div>
+
+            {/* Explore link — right of header */}
+            <div className="flex-shrink-0 pb-1">
+              <a
+                ref={linkRef}
+                href="#proyectos"
+                onClick={e => { e.preventDefault(); setSelected(projects[0]); }}
+                onMouseEnter={onLinkEnter}
+                onMouseLeave={onLinkLeave}
+                className="group inline-flex items-center gap-3 font-sans text-[0.68rem] tracking-[0.42em] uppercase text-dark/50 hover:text-dark transition-colors duration-300 relative"
+              >
+                <span>Explorar el portafolio</span>
+                <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-300" />
+                <span
+                  ref={linkUnderRef}
+                  className="absolute -bottom-1 left-0 w-full h-[1px] bg-dark origin-left"
+                  style={{ transform: "scaleX(0)" }}
+                />
+              </a>
+            </div>
           </div>
 
           {/* Two-column layout — both columns same height */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-stretch">
 
             {/* ── Left: project list ── */}
-            <div className="flex flex-col justify-between">
-              <div>
-                {projects.map((project, i) => (
+            <div>
+              {projects.map((project, i) => (
                   <div
                     key={project.id}
                     ref={el => { rowRefs.current[i] = el; }}
@@ -114,28 +135,7 @@ export function ProjectsSection() {
                       </span>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Explore link */}
-              <div className="mt-10 md:mt-12">
-                <a
-                  ref={linkRef}
-                  href="#proyectos"
-                  onClick={e => { e.preventDefault(); setSelected(projects[0]); }}
-                  onMouseEnter={onLinkEnter}
-                  onMouseLeave={onLinkLeave}
-                  className="group inline-flex items-center gap-3 font-sans text-[0.55rem] tracking-[0.42em] uppercase text-dark/50 hover:text-dark transition-colors duration-300 relative"
-                >
-                  <span>Explorar el portafolio</span>
-                  <ArrowRight size={11} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-300" />
-                  <span
-                    ref={linkUnderRef}
-                    className="absolute -bottom-1 left-0 w-full h-[1px] bg-dark origin-left"
-                    style={{ transform: "scaleX(0)" }}
-                  />
-                </a>
-              </div>
+              ))}
             </div>
 
             {/* ── Right: image — fixed height, never resizes ── */}

@@ -71,14 +71,13 @@ export function AboutSection() {
             </p>
             <div className="about-fade">
               <a
-                href="#contacto"
-                onClick={e => { e.preventDefault(); document.querySelector("#contacto")?.scrollIntoView({ behavior: "smooth" }); }}
+                href="/sobre-mi"
                 onMouseEnter={onEnter}
                 onMouseLeave={onLeave}
-                className="group inline-flex items-center gap-3 font-sans text-[0.56rem] tracking-[0.4em] uppercase text-dark/50 hover:text-dark transition-colors duration-300 relative"
+                className="group inline-flex items-center gap-3 font-sans text-[0.68rem] tracking-[0.42em] uppercase text-dark/50 hover:text-dark transition-colors duration-300 relative"
               >
                 Conoce más sobre mí
-                <ArrowRight size={11} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-300" />
+                <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-300" />
                 <span
                   ref={underlineRef}
                   className="absolute -bottom-1 left-0 w-full h-[1px] bg-dark origin-left"
