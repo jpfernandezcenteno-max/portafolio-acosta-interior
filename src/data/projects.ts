@@ -81,4 +81,24 @@ export const projects: Project[] = [
     ],
     tags: ["Galería", "Arte contemporáneo", "Conceptual"],
   },
+  {
+    id: "residencia-san-isidro",
+    title: "Residencia San Isidro",
+    year: "2022",
+    category: "Residencial",
+    description:
+      "Apartamento de alto estándar en San Isidro rediseñado con una paleta de materiales nobles: mármol travertino, madera de roble y bronce envejecido. El proyecto equilibra la representación con la intimidad doméstica.",
+    coverImage: "https://picsum.photos/seed/san0/1400/900",
+    images: [
+      "https://picsum.photos/seed/san1/1400/900",
+      "https://picsum.photos/seed/san2/1400/900",
+      "https://picsum.photos/seed/san3/1400/900",
+      "https://picsum.photos/seed/san4/1400/900",
+      "https://picsum.photos/seed/san5/1400/900",
+      "https://picsum.photos/seed/san6/1400/900",
+      "https://picsum.photos/seed/san7/1400/900",
+      "https://picsum.photos/seed/san8/1400/900",
+    ],
+    tags: ["Lujo", "Materiales nobles", "San Isidro"],
+  },
 ];

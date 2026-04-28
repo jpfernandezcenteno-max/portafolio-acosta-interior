@@ -8,19 +8,31 @@ import { ProjectModal } from "./ProjectModal";
 import { ArrowRight } from "lucide-react";
 
 export function ProjectsSection() {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const imgRefs     = useRef<(HTMLImageElement | null)[]>([]);
-  const linkRef     = useRef<HTMLAnchorElement>(null);
-  const underlineRef = useRef<HTMLSpanElement>(null);
-  const [active, setActive] = useState(0);
+  const sectionRef   = useRef<HTMLElement>(null);
+  const imgRefs      = useRef<(HTMLImageElement | null)[]>([]);
+  const rowRefs      = useRef<(HTMLDivElement | null)[]>([]);
+  const underlineRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const linkRef      = useRef<HTMLAnchorElement>(null);
+  const linkUnderRef = useRef<HTMLSpanElement>(null);
+  const [active, setActive]     = useState(0);
   const [selected, setSelected] = useState<Project | null>(null);
 
   /* GSAP crossfade between images */
   const handleEnter = (i: number) => {
-    if (i === active) return;
-    gsap.to(imgRefs.current[active], { opacity: 0, duration: 0.45, ease: "power2.inOut" });
-    gsap.to(imgRefs.current[i],      { opacity: 1, duration: 0.45, ease: "power2.inOut" });
-    setActive(i);
+    if (i !== active) {
+      gsap.to(imgRefs.current[active], { opacity: 0, duration: 0.45, ease: "power2.inOut" });
+      gsap.to(imgRefs.current[i],      { opacity: 1, duration: 0.45, ease: "power2.inOut" });
+      setActive(i);
+    }
+    /* Row expand */
+    gsap.to(rowRefs.current[i], { paddingTop: "2.2rem", paddingBottom: "2.2rem", duration: 0.35, ease: "power3.out" });
+    /* Underline in */
+    gsap.to(underlineRefs.current[i], { scaleX: 1, duration: 0.35, ease: "power3.out" });
+  };
+
+  const handleLeave = (i: number) => {
+    gsap.to(rowRefs.current[i], { paddingTop: "1.5rem", paddingBottom: "1.5rem", duration: 0.3, ease: "power2.in" });
+    gsap.to(underlineRefs.current[i], { scaleX: 0, duration: 0.25, ease: "power2.in" });
   };
 
   useGSAP(
@@ -37,11 +49,10 @@ export function ProjectsSection() {
     { scope: sectionRef }
   );
 
-  /* "Explorar" link underline hover */
   const onLinkEnter = () =>
-    gsap.to(underlineRef.current, { scaleX: 1, duration: 0.35, ease: "power3.out" });
+    gsap.to(linkUnderRef.current, { scaleX: 1, duration: 0.35, ease: "power3.out" });
   const onLinkLeave = () =>
-    gsap.to(underlineRef.current, { scaleX: 0, duration: 0.25, ease: "power2.in" });
+    gsap.to(linkUnderRef.current, { scaleX: 0, duration: 0.25, ease: "power2.in" });
 
   return (
     <>
@@ -49,7 +60,7 @@ export function ProjectsSection() {
         <div className="site-pad pt-24 md:pt-32 pb-20 md:pb-28">
 
           {/* Header */}
-          <div className="proj-header mb-12 md:mb-14">
+          <div className="proj-header mb-12 md:mb-16">
             <p className="font-sans text-[0.5rem] tracking-[0.52em] uppercase text-primary mb-3">
               Portafolio
             </p>
@@ -61,37 +72,50 @@ export function ProjectsSection() {
             </h2>
           </div>
 
-          {/* Two-column layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+          {/* Two-column layout — both columns same height */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-stretch">
 
             {/* ── Left: project list ── */}
-            <div>
-              {projects.map((project, i) => (
-                <div
-                  key={project.id}
-                  className="proj-row group border-t border-dark/10 last:border-b last:border-dark/10"
-                  onMouseEnter={() => handleEnter(i)}
-                  onClick={() => setSelected(project)}
-                  data-cursor-hover
-                >
-                  <div className="flex items-center justify-between py-6 md:py-7 cursor-pointer">
-                    <div className="flex items-baseline gap-4 md:gap-6">
-                      <span className="font-sans text-[0.48rem] tracking-[0.42em] uppercase text-primary/60 tabular-nums flex-shrink-0">
-                        {String(i + 1).padStart(2, "0")}
+            <div className="flex flex-col justify-between">
+              <div>
+                {projects.map((project, i) => (
+                  <div
+                    key={project.id}
+                    ref={el => { rowRefs.current[i] = el; }}
+                    className="proj-row group border-t border-dark/10 last:border-b last:border-dark/10"
+                    style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem" }}
+                    onMouseEnter={() => handleEnter(i)}
+                    onMouseLeave={() => handleLeave(i)}
+                    onClick={() => setSelected(project)}
+                    data-cursor-hover
+                  >
+                    <div className="flex items-center justify-between cursor-pointer">
+                      <div className="flex items-baseline gap-4 md:gap-6">
+                        <span className="font-sans text-[0.48rem] tracking-[0.42em] uppercase text-primary/60 tabular-nums flex-shrink-0">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div className="relative">
+                          <h3
+                            className="font-serif font-light text-dark group-hover:text-primary transition-colors duration-300 leading-tight"
+                            style={{ fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)" }}
+                          >
+                            {project.title}
+                          </h3>
+                          {/* Animated underline per row */}
+                          <span
+                            ref={el => { underlineRefs.current[i] = el; }}
+                            className="absolute -bottom-1 left-0 w-full h-[1px] bg-primary origin-left"
+                            style={{ transform: "scaleX(0)" }}
+                          />
+                        </div>
+                      </div>
+                      <span className="font-sans text-[0.48rem] tracking-[0.35em] uppercase text-dark/25 flex-shrink-0 ml-4 hidden sm:block">
+                        {project.category}
                       </span>
-                      <h3
-                        className="font-serif font-light text-dark group-hover:text-primary transition-colors duration-300 leading-tight"
-                        style={{ fontSize: "clamp(1.4rem, 2.8vw, 2.2rem)" }}
-                      >
-                        {project.title}
-                      </h3>
                     </div>
-                    <span className="font-sans text-[0.48rem] tracking-[0.35em] uppercase text-dark/25 flex-shrink-0 ml-4 hidden sm:block">
-                      {project.category}
-                    </span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
 
               {/* Explore link */}
               <div className="mt-10 md:mt-12">
@@ -105,9 +129,8 @@ export function ProjectsSection() {
                 >
                   <span>Explorar el portafolio</span>
                   <ArrowRight size={11} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform duration-300" />
-                  {/* animated underline */}
                   <span
-                    ref={underlineRef}
+                    ref={linkUnderRef}
                     className="absolute -bottom-1 left-0 w-full h-[1px] bg-dark origin-left"
                     style={{ transform: "scaleX(0)" }}
                   />
@@ -115,10 +138,10 @@ export function ProjectsSection() {
               </div>
             </div>
 
-            {/* ── Right: image ── */}
+            {/* ── Right: image — fixed height, never resizes ── */}
             <div
-              className="relative overflow-hidden hidden md:block"
-              style={{ aspectRatio: "4/3" }}
+              className="relative overflow-hidden hidden md:block self-stretch"
+              style={{ minHeight: "clamp(420px, 65vh, 780px)" }}
             >
               {projects.map((project, i) => (
                 <img
