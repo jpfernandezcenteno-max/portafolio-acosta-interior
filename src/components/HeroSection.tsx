@@ -5,31 +5,25 @@ import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const taglineRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const bgRef      = useRef<HTMLDivElement>(null);
+  const imgRef     = useRef<HTMLImageElement>(null);
+  const nameRef    = useRef<HTMLHeadingElement>(null);
+  const titleRef   = useRef<HTMLParagraphElement>(null);
 
   useGSAP(
     () => {
-      const split = new SplitText(taglineRef.current, { type: "lines" });
+      /* Subtle zoom-in on load — image starts at rest, slowly approaches */
+      gsap.fromTo(
+        imgRef.current,
+        { scale: 1.0 },
+        { scale: 1.08, duration: 9, ease: "power1.inOut" }
+      );
 
-      const tl = gsap.timeline({ delay: 0.5 });
-      tl.from(split.lines, {
-          opacity: 0,
-          y: 30,
-          stagger: 0.12,
-          duration: 1,
-          ease: "power3.out",
-        })
-        .from(ctaRef.current, { opacity: 0, y: 12, duration: 0.7, ease: "power3.out" }, "-=0.4")
-        .from(scrollRef.current, { opacity: 0, duration: 0.5 }, "-=0.2");
-
+      /* Parallax on scroll */
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
         gsap.to(bgRef.current, {
-          yPercent: 18,
+          yPercent: 20,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -40,7 +34,21 @@ export function HeroSection() {
         });
       });
 
-      return () => { split.revert(); mm.revert(); };
+      /* Text entrance */
+      const nameSplit = new SplitText(nameRef.current, { type: "chars" });
+      const tl = gsap.timeline({ delay: 0.3 });
+      tl.from(nameSplit.chars, {
+          opacity: 0,
+          y: 60,
+          rotationX: -40,
+          transformOrigin: "0% 50% -50",
+          stagger: 0.025,
+          duration: 1,
+          ease: "power3.out",
+        })
+        .from(titleRef.current, { opacity: 0, y: 10, duration: 0.7, ease: "power3.out" }, "-=0.4");
+
+      return () => { nameSplit.revert(); mm.revert(); };
     },
     { scope: sectionRef }
   );
@@ -51,48 +59,34 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
     >
-      <div ref={bgRef} className="absolute inset-0 scale-110">
+      {/* Background */}
+      <div ref={bgRef} className="absolute inset-0">
         <img
+          ref={imgRef}
           src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80"
           alt=""
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover will-change-transform"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-dark/40" />
+        <div className="absolute inset-0 bg-dark/42" />
       </div>
 
-      {/* Centered content */}
-      <div ref={contentRef} className="relative z-10 text-center site-pad max-w-3xl mx-auto">
+      {/* Content */}
+      <div className="relative z-10 text-center select-none">
+        <h1
+          ref={nameRef}
+          className="font-serif font-light text-light leading-none"
+          style={{ fontSize: "clamp(3.5rem, 10vw, 9.5rem)" }}
+        >
+          Andrea Acosta
+        </h1>
         <p
-          ref={taglineRef}
-          className="font-serif font-light text-light leading-[1.45] mb-10"
-          style={{ fontSize: "clamp(1.1rem, 2.8vw, 2rem)" }}
+          ref={titleRef}
+          className="font-sans font-light text-light/55 tracking-[0.3em] uppercase mt-5"
+          style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.9rem)" }}
         >
-          Andrea Acosta combina arte con una gestión de proyectos experta para crear espacios
-          de vida impregnados de personalidad y cultura.
+          Diseñadora de Interiores
         </p>
-
-        <a
-          ref={ctaRef}
-          href="#estudio"
-          onClick={(e) => {
-            e.preventDefault();
-            document.querySelector("#estudio")?.scrollIntoView({ behavior: "smooth" });
-          }}
-          className="inline-flex items-center gap-3 font-sans text-[0.58rem] tracking-[0.42em] uppercase text-light border border-light/50 px-8 py-3.5 hover:bg-light hover:text-dark transition-all duration-300"
-        >
-          Conoce el estudio
-        </a>
-      </div>
-
-      {/* Scroll */}
-      <div
-        ref={scrollRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10"
-      >
-        <div className="w-[1px] h-12 bg-light/25 overflow-hidden">
-          <div className="scroll-line-inner w-full h-full bg-light/60 origin-top" />
-        </div>
       </div>
     </section>
   );
