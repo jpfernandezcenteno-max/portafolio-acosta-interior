@@ -1,8 +1,10 @@
 import { CustomCursor } from "@/components/CustomCursor";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { AboutSection } from "@/components/AboutSection";
+import { PressSection } from "@/components/PressSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { AboutSection } from "@/components/AboutSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { ContactSection } from "@/components/ContactSection";
 
 export default function Page() {
@@ -12,8 +14,10 @@ export default function Page() {
       <Navbar />
       <main>
         <HeroSection />
-        <AboutSection />
+        <PressSection />
         <ProjectsSection />
+        <AboutSection />
+        <TestimonialsSection />
         <ContactSection />
       </main>
     </>
