@@ -33,7 +33,7 @@ export function AboutSection() {
   );
 
   return (
-    <section id="estudio" ref={sectionRef} className="bg-secondary">
+    <section id="sobre-mi" ref={sectionRef} className="bg-secondary">
 
       {/* Top statement — full width */}
       <div className="site-pad pt-24 md:pt-32 pb-20 md:pb-24 border-b border-dark/6">
