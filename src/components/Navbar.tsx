@@ -16,29 +16,26 @@ export function Navbar() {
   const linksRef = useRef<HTMLUListElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useGSAP(() => {
-    gsap.set(barRef.current, { y: -80, opacity: 0 });
-
     ScrollTrigger.create({
       trigger: "#inicio",
-      start: "bottom top+=60",
-      onEnter: () =>
-        gsap.to(barRef.current, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }),
-      onLeaveBack: () =>
-        gsap.to(barRef.current, { y: -80, opacity: 0, duration: 0.3, ease: "power2.in" }),
+      start: "bottom top+=40",
+      onEnter: () => setScrolled(true),
+      onLeaveBack: () => setScrolled(false),
     });
 
     gsap.set(overlayRef.current, { autoAlpha: 0 });
     const items = linksRef.current?.querySelectorAll("li");
-    if (items) gsap.set(items, { y: 48, opacity: 0 });
+    if (items) gsap.set(items, { y: 56, opacity: 0 });
 
     tlRef.current = gsap
       .timeline({ paused: true })
-      .to(overlayRef.current, { autoAlpha: 1, duration: 0.45, ease: "power2.out" })
+      .to(overlayRef.current, { autoAlpha: 1, duration: 0.5, ease: "power2.out" })
       .to(
         items ? Array.from(items) : [],
-        { y: 0, opacity: 1, stagger: 0.07, duration: 0.65, ease: "power3.out" },
+        { y: 0, opacity: 1, stagger: 0.08, duration: 0.75, ease: "power3.out" },
         "-=0.2"
       );
   });
@@ -71,33 +68,32 @@ export function Navbar() {
         ref={barRef}
         role="navigation"
         aria-label="Navegación principal"
-        className="fixed top-0 left-0 right-0 z-50 bg-light/94 backdrop-blur-md border-b border-secondary"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled ? "bg-light/95 backdrop-blur-md border-b border-dark/6" : "bg-transparent"
+        }`}
       >
-        <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 h-[62px] flex items-center justify-between">
-          {/* Logo */}
+        <div className="px-6 md:px-12 lg:px-20 h-16 md:h-[72px] flex items-center justify-between">
           <a
             href="#inicio"
             onClick={(e) => { e.preventDefault(); handleNav("#inicio"); }}
             aria-label="Acosta Interior — Inicio"
-            className="flex flex-col leading-none group"
+            className="flex flex-col leading-none"
           >
-            <span className="font-serif text-[1.05rem] font-light tracking-[0.22em] text-dark group-hover:text-primary transition-colors duration-300">
+            <span className="font-serif text-[1rem] font-light tracking-[0.28em] text-dark">
               Acosta
             </span>
-            <span className="font-sans text-[0.48rem] tracking-[0.55em] uppercase text-primary/70 group-hover:text-primary transition-colors duration-300 -mt-0.5">
+            <span className="font-sans text-[0.42rem] tracking-[0.65em] uppercase text-dark/40 -mt-0.5">
               Interior
             </span>
           </a>
 
-          {/* Menu toggle */}
           <button
             onClick={handleToggle}
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
-            className="font-sans text-[0.6rem] tracking-[0.4em] uppercase text-dark/55 hover:text-primary transition-colors duration-300 flex items-center gap-2.5"
+            className="font-sans text-[0.56rem] tracking-[0.48em] uppercase text-dark/55 hover:text-dark transition-colors duration-200"
           >
-            <span className="w-5 h-[1px] bg-current" />
-            {open ? "Cerrar" : "Menú"}
+            Menú
           </button>
         </div>
       </nav>
@@ -105,38 +101,30 @@ export function Navbar() {
       {/* Full-screen overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-[55] bg-light flex flex-col"
+        className="fixed inset-0 z-[55] bg-secondary flex flex-col"
         aria-hidden={!open}
       >
-        {/* Overlay top bar */}
-        <div className="max-w-[1440px] mx-auto w-full px-6 md:px-12 lg:px-20 h-[62px] flex items-center justify-between flex-shrink-0">
+        {/* Top bar */}
+        <div className="px-6 md:px-12 lg:px-20 h-16 md:h-[72px] flex items-center justify-between flex-shrink-0">
           <a
             href="#inicio"
             onClick={(e) => { e.preventDefault(); handleNav("#inicio"); }}
-            aria-label="Acosta Interior — Inicio"
-            className="flex flex-col leading-none group"
+            className="flex flex-col leading-none"
           >
-            <span className="font-serif text-[1.05rem] font-light tracking-[0.22em] text-dark group-hover:text-primary transition-colors duration-300">
-              Acosta
-            </span>
-            <span className="font-sans text-[0.48rem] tracking-[0.55em] uppercase text-primary/70 group-hover:text-primary transition-colors duration-300 -mt-0.5">
-              Interior
-            </span>
+            <span className="font-serif text-[1rem] font-light tracking-[0.28em] text-dark">Acosta</span>
+            <span className="font-sans text-[0.42rem] tracking-[0.65em] uppercase text-dark/40 -mt-0.5">Interior</span>
           </a>
-
           <button
             onClick={handleToggle}
-            aria-label="Cerrar menú"
-            className="font-sans text-[0.6rem] tracking-[0.4em] uppercase text-dark/55 hover:text-primary transition-colors duration-300 flex items-center gap-2.5"
+            className="font-sans text-[0.56rem] tracking-[0.48em] uppercase text-dark/55 hover:text-dark transition-colors duration-200"
           >
-            <span className="w-5 h-[1px] bg-current" />
             Cerrar
           </button>
         </div>
 
-        {/* Nav links — centered vertically */}
-        <div className="flex-1 flex items-center max-w-[1440px] mx-auto w-full px-6 md:px-12 lg:px-20">
-          <ul ref={linksRef} className="space-y-1 md:space-y-2">
+        {/* Nav links */}
+        <div className="flex-1 flex items-center px-6 md:px-12 lg:px-20">
+          <ul ref={linksRef} className="space-y-1">
             {links.map(({ label, href, num }) => (
               <li key={href}>
                 <a
@@ -144,12 +132,12 @@ export function Navbar() {
                   onClick={(e) => { e.preventDefault(); handleNav(href); }}
                   className="group flex items-baseline gap-5 md:gap-8"
                 >
-                  <span className="font-sans text-[0.52rem] tracking-[0.35em] uppercase text-primary/40 group-hover:text-primary transition-colors duration-300 tabular-nums w-5 flex-shrink-0">
+                  <span className="font-sans text-[0.48rem] tracking-[0.4em] uppercase text-dark/25 w-5 flex-shrink-0 group-hover:text-primary transition-colors duration-300">
                     {num}
                   </span>
                   <span
-                    className="font-serif font-light text-dark group-hover:text-primary transition-colors duration-300 leading-none"
-                    style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.8rem)" }}
+                    className="font-serif font-light text-dark/75 group-hover:text-dark transition-colors duration-300 leading-[1.05]"
+                    style={{ fontSize: "clamp(2.6rem, 7.5vw, 7rem)" }}
                   >
                     {label}
                   </span>
@@ -159,12 +147,12 @@ export function Navbar() {
           </ul>
         </div>
 
-        {/* Bottom info bar */}
-        <div className="max-w-[1440px] mx-auto w-full px-6 md:px-12 lg:px-20 pb-10 md:pb-14 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 flex-shrink-0 border-t border-primary/10 pt-8">
-          <p className="font-sans text-[0.6rem] tracking-[0.38em] uppercase text-dark/30">
-            Estudio de Diseño · Lima, Perú
+        {/* Bottom info */}
+        <div className="px-6 md:px-12 lg:px-20 pb-10 md:pb-14 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 flex-shrink-0">
+          <p className="font-sans text-[0.55rem] tracking-[0.38em] uppercase text-dark/25">
+            Estudio de Diseño de Interiores · Lima, Perú
           </p>
-          <p className="font-sans text-[0.6rem] tracking-[0.38em] uppercase text-dark/30">
+          <p className="font-sans text-[0.55rem] tracking-[0.38em] uppercase text-dark/25">
             contacto@acostainterior.com
           </p>
         </div>

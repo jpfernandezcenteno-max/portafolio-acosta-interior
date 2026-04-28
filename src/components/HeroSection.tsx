@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
+import { gsap, SplitText, useGSAP } from "@/lib/gsap";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,54 +14,27 @@ export function HeroSection() {
 
   useGSAP(
     () => {
-      const acostasSplit = new SplitText(acostaRef.current, { type: "chars" });
+      const split = new SplitText(acostaRef.current, { type: "chars" });
 
-      const tl = gsap.timeline({ delay: 0.3 });
+      const tl = gsap.timeline({ delay: 0.4 });
 
-      tl.from(labelRef.current, {
-        opacity: 0,
-        y: 18,
-        duration: 0.7,
-        ease: "power3.out",
-      })
+      tl.from(labelRef.current, { opacity: 0, y: 14, duration: 0.8, ease: "power3.out" })
         .from(
-          acostasSplit.chars,
+          split.chars,
           {
             opacity: 0,
-            y: 70,
-            rotationX: -45,
+            y: 60,
+            rotationX: -40,
             transformOrigin: "0% 50% -50",
             stagger: 0.03,
-            duration: 0.95,
+            duration: 1,
             ease: "power3.out",
           },
-          "-=0.3"
+          "-=0.4"
         )
-        .from(
-          interiorRef.current,
-          {
-            opacity: 0,
-            y: 14,
-            duration: 0.7,
-            ease: "power3.out",
-          },
-          "-=0.5"
-        )
-        .from(
-          taglineRef.current,
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            ease: "power3.out",
-          },
-          "-=0.3"
-        )
-        .from(
-          scrollRef.current,
-          { opacity: 0, y: 14, duration: 0.5 },
-          "-=0.2"
-        );
+        .from(interiorRef.current, { opacity: 0, y: 12, duration: 0.7, ease: "power3.out" }, "-=0.5")
+        .from(taglineRef.current, { opacity: 0, y: 16, duration: 0.7, ease: "power3.out" }, "-=0.4")
+        .from(scrollRef.current, { opacity: 0, duration: 0.6 }, "-=0.2");
 
       gsap.to(".scroll-line-inner", {
         scaleY: 0,
@@ -69,27 +42,24 @@ export function HeroSection() {
         duration: 1.8,
         ease: "none",
         repeat: -1,
-        delay: 2.5,
+        delay: 2.8,
       });
 
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
         gsap.to(bgRef.current, {
-          yPercent: 25,
+          yPercent: 22,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
             end: "bottom top",
-            scrub: 1,
+            scrub: 1.2,
           },
         });
       });
 
-      return () => {
-        acostasSplit.revert();
-        mm.revert();
-      };
+      return () => { split.revert(); mm.revert(); };
     },
     { scope: sectionRef }
   );
@@ -98,7 +68,7 @@ export function HeroSection() {
     <section
       id="inicio"
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden flex items-center justify-center"
+      className="relative h-screen w-full overflow-hidden flex items-end justify-start"
     >
       {/* Background */}
       <div ref={bgRef} className="absolute inset-0 scale-110">
@@ -108,44 +78,33 @@ export function HeroSection() {
           className="w-full h-full object-cover"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-light/80" />
+        <div className="absolute inset-0 bg-light/72" />
       </div>
 
-      {/* Decorative side rule */}
-      <div className="absolute left-8 md:left-16 lg:left-20 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4">
-        <div className="w-[1px] h-20 bg-primary/25" />
-        <span
-          className="font-sans text-[0.5rem] tracking-[0.4em] uppercase text-primary/40"
-          style={{ writingMode: "vertical-rl" }}
-        >
-          Portafolio 2024
-        </span>
-      </div>
-
-      {/* Main content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      {/* Main content — bottom-left */}
+      <div className="relative z-10 px-6 md:px-12 lg:px-20 pb-20 md:pb-28 w-full">
         <p
           ref={labelRef}
-          className="font-sans text-[0.6rem] tracking-[0.5em] uppercase text-primary mb-10 md:mb-12"
+          className="font-sans text-[0.55rem] tracking-[0.55em] uppercase text-dark/40 mb-8 md:mb-10"
         >
           Estudio de Diseño · Lima, Perú
         </p>
 
-        <h1
-          aria-label="Acosta Interior"
-          className="leading-none select-none"
-        >
+        <h1 aria-label="Acosta Interior" className="leading-none select-none">
           <span
             ref={acostaRef}
             className="block font-serif font-light text-dark"
-            style={{ fontSize: "clamp(4rem, 12.5vw, 11rem)" }}
+            style={{ fontSize: "clamp(4.5rem, 13vw, 12rem)" }}
           >
             Acosta
           </span>
           <span
             ref={interiorRef}
-            className="block font-sans font-light text-primary tracking-[0.55em] md:tracking-[0.7em] uppercase"
-            style={{ fontSize: "clamp(0.72rem, 1.8vw, 1.35rem)", marginTop: "clamp(0.4rem, 1vw, 0.9rem)" }}
+            className="block font-sans font-light text-dark/50 tracking-[0.6em] uppercase"
+            style={{
+              fontSize: "clamp(0.68rem, 1.7vw, 1.25rem)",
+              marginTop: "clamp(0.3rem, 0.8vw, 0.7rem)",
+            }}
           >
             Interior
           </span>
@@ -153,8 +112,8 @@ export function HeroSection() {
 
         <p
           ref={taglineRef}
-          className="font-sans font-light text-dark/55 mt-10 md:mt-12 mx-auto tracking-wide"
-          style={{ fontSize: "clamp(0.82rem, 1.3vw, 1rem)" }}
+          className="font-sans font-light text-dark/40 mt-8 md:mt-10 tracking-wide max-w-sm"
+          style={{ fontSize: "clamp(0.78rem, 1.1vw, 0.95rem)" }}
         >
           Espacios que narran quiénes somos
         </p>
@@ -163,14 +122,17 @@ export function HeroSection() {
       {/* Scroll indicator */}
       <div
         ref={scrollRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        className="absolute bottom-10 right-6 md:right-12 lg:right-20 flex flex-col items-center gap-3"
       >
-        <span className="font-sans text-[0.5rem] tracking-[0.45em] uppercase text-primary/40">
-          Desplazar
-        </span>
-        <div className="w-[1px] h-14 bg-primary/15 overflow-hidden">
-          <div className="scroll-line-inner w-full h-full bg-primary origin-top" />
+        <div className="w-[1px] h-12 bg-dark/15 overflow-hidden">
+          <div className="scroll-line-inner w-full h-full bg-dark/40 origin-top" />
         </div>
+        <span
+          className="font-sans text-[0.46rem] tracking-[0.45em] uppercase text-dark/30"
+          style={{ writingMode: "vertical-rl" }}
+        >
+          Scroll
+        </span>
       </div>
     </section>
   );

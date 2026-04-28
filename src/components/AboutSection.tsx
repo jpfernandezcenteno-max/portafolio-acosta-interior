@@ -2,49 +2,37 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
-import { Skill } from "@/types";
-
-const skills: Skill[] = [
-  { name: "AutoCAD", level: 90 },
-  { name: "SketchUp", level: 85 },
-  { name: "Revit", level: 75 },
-  { name: "3ds Max", level: 70 },
-  { name: "V-Ray", level: 65 },
-  { name: "Photoshop", level: 82 },
-  { name: "Illustrator", level: 76 },
-  { name: "InDesign", level: 72 },
-];
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const quoteRef = useRef<HTMLHeadingElement>(null);
   const photoRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      const titleSplit = new SplitText(titleRef.current, { type: "lines" });
+      const quoteSplit = new SplitText(quoteRef.current, { type: "lines" });
 
-      gsap.from(titleSplit.lines, {
+      gsap.from(quoteSplit.lines, {
         opacity: 0,
-        y: 50,
-        stagger: 0.12,
-        duration: 1,
+        y: 40,
+        stagger: 0.1,
+        duration: 1.1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: titleRef.current,
-          start: "top 82%",
+          trigger: quoteRef.current,
+          start: "top 80%",
           once: true,
         },
       });
 
-      gsap.from(".about-text-block", {
+      gsap.from(".about-fade", {
         opacity: 0,
-        y: 36,
-        stagger: 0.1,
+        y: 28,
+        stagger: 0.12,
         duration: 0.9,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: ".about-text-block",
+          trigger: ".about-fade",
           start: "top 82%",
           once: true,
         },
@@ -52,35 +40,16 @@ export function AboutSection() {
 
       gsap.from(photoRef.current, {
         clipPath: "inset(0 100% 0 0)",
-        duration: 1.4,
+        duration: 1.5,
         ease: "power3.inOut",
         scrollTrigger: {
           trigger: photoRef.current,
-          start: "top 80%",
+          start: "top 78%",
           once: true,
         },
       });
 
-      const bars = gsap.utils.toArray<HTMLElement>(".skill-bar-fill");
-      bars.forEach((bar) => {
-        const level = bar.getAttribute("data-level") || "0";
-        gsap.fromTo(
-          bar,
-          { width: "0%" },
-          {
-            width: `${level}%`,
-            duration: 1.3,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: bar,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        );
-      });
-
-      return () => titleSplit.revert();
+      return () => quoteSplit.revert();
     },
     { scope: sectionRef }
   );
@@ -89,90 +58,74 @@ export function AboutSection() {
     <section
       id="sobre-mi"
       ref={sectionRef}
-      className="bg-light py-24 md:py-36 lg:py-44"
+      className="bg-light"
     >
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-28 xl:gap-36 items-start">
+      {/* Statement quote — full width */}
+      <div className="px-6 md:px-12 lg:px-20 pt-28 md:pt-40 pb-20 md:pb-28 border-b border-dark/6">
+        <p className="about-fade font-sans text-[0.55rem] tracking-[0.52em] uppercase text-primary mb-8 md:mb-12">
+          Sobre mí
+        </p>
+        <h2
+          ref={quoteRef}
+          className="font-serif font-light text-dark leading-[1.12] max-w-4xl"
+          style={{ fontSize: "clamp(1.9rem, 4.2vw, 3.8rem)" }}
+        >
+          Creando espacios con propósito, con materiales
+          cuidadosamente seleccionados — interiores hechos
+          para <em>perdurar en el tiempo.</em>
+        </h2>
+      </div>
 
-          {/* Left — Biography */}
-          <div>
-            <p className="font-sans text-[0.6rem] tracking-[0.48em] uppercase text-primary mb-7">
-              Sobre mí
+      {/* Bio + Photo */}
+      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 lg:gap-36 items-start">
+
+          {/* Left — text */}
+          <div className="space-y-8 md:pt-4">
+            <p className="about-fade font-sans font-light text-dark/55 text-[0.9rem] leading-[1.9]">
+              Acosta Interior es un estudio de diseño de interiores con sede en Lima, Perú.
+              Nuestro trabajo parte de una premisa simple: los espacios no son neutros —
+              cada decisión, desde la proporción de un vano hasta la textura de un material,
+              comunica algo sobre el mundo que habitamos.
             </p>
-            <h2
-              ref={titleRef}
-              className="font-serif font-light text-dark leading-[1.1] mb-12"
-              style={{ fontSize: "clamp(2.2rem, 4.2vw, 3.8rem)" }}
-            >
-              Diseñar es narrar
-              <br />
-              <em>espacios que hablan.</em>
-            </h2>
+            <p className="about-fade font-sans font-light text-dark/55 text-[0.9rem] leading-[1.9]">
+              Combinamos rigor técnico con sensibilidad artística. Investigamos el comportamiento
+              de la luz natural, la relación entre materialidad y emoción, y la manera en que
+              la arquitectura interior puede mejorar el bienestar de quienes viven y trabajan
+              en un espacio.
+            </p>
+            <p className="about-fade font-sans font-light text-dark/55 text-[0.9rem] leading-[1.9]">
+              Cada proyecto es una conversación entre el lugar, el cliente y nuestra visión.
+              El resultado: espacios que se sienten inevitables, como si siempre hubieran
+              debido existir exactamente así.
+            </p>
 
-            <div className="space-y-6">
-              <p className="about-text-block font-sans font-light text-dark/65 leading-[1.85] text-[0.9rem]">
-                Acosta Interior es un estudio de diseño de interiores con sede en Lima, Perú.
-                Nuestro trabajo parte de una premisa simple: los espacios no son neutros —
-                cada decisión, desde la proporción de un vano hasta la textura de un material,
-                comunica algo sobre el mundo que habitamos.
-              </p>
-              <p className="about-text-block font-sans font-light text-dark/65 leading-[1.85] text-[0.9rem]">
-                Combinamos rigor técnico con sensibilidad artística. Investigamos
-                el comportamiento de la luz natural, la relación entre materialidad y emoción,
-                y la manera en que la arquitectura interior puede mejorar el bienestar
-                de quienes viven y trabajan en un espacio.
-              </p>
-              <p className="about-text-block font-sans font-light text-dark/65 leading-[1.85] text-[0.9rem]">
-                Cada proyecto es una conversación entre el lugar, el cliente y nuestra visión.
-                El resultado: espacios que se sienten inevitables, como si siempre
-                hubieran debido existir exactamente así.
-              </p>
+            <div className="about-fade pt-4">
+              <a
+                href="#contacto"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector("#contacto")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="font-sans text-[0.58rem] tracking-[0.42em] uppercase text-dark/40 hover:text-primary transition-colors duration-300 border-b border-current pb-0.5"
+              >
+                Hablemos de tu proyecto
+              </a>
             </div>
           </div>
 
-          {/* Right — Photo + Skills */}
-          <div className="space-y-14 lg:space-y-16">
-            {/* Photo */}
-            <div
-              ref={photoRef}
-              className="relative overflow-hidden aspect-[4/3]"
-            >
-              <img
-                src="https://picsum.photos/seed/designer-portrait/800/600"
-                alt="Acosta Interior — estudio de diseño de interiores"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-light/50 to-transparent" />
-            </div>
-
-            {/* Skills */}
-            <div>
-              <p className="font-sans text-[0.6rem] tracking-[0.48em] uppercase text-primary mb-9">
-                Habilidades y software
-              </p>
-              <div className="space-y-5">
-                {skills.map((skill) => (
-                  <div key={skill.name}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-sans text-[0.8rem] tracking-wide text-dark/75">
-                        {skill.name}
-                      </span>
-                      <span className="font-sans text-[0.68rem] tabular-nums text-primary/60">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="h-[2px] w-full bg-secondary rounded-full overflow-hidden">
-                      <div
-                        className="skill-bar-fill h-full bg-primary rounded-full"
-                        data-level={skill.level}
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Right — photo */}
+          <div
+            ref={photoRef}
+            className="relative overflow-hidden"
+            style={{ aspectRatio: "4/5" }}
+          >
+            <img
+              src="https://picsum.photos/seed/designer-portrait/800/1000"
+              alt="Acosta Interior — estudio de diseño de interiores"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
 
         </div>
