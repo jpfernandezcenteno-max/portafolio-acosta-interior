@@ -76,7 +76,7 @@ export function TestimonialsSection() {
 
   return (
     <section id="testimonios" ref={sectionRef} className="bg-light">
-      <div className="site-pad pt-24 md:pt-32 pb-20 md:pb-28">
+      <div className="site-pad section-space">
 
         {/* Header */}
         <div className="testimonials-header flex items-end justify-between mb-16 md:mb-20">

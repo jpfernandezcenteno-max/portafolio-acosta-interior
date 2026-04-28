@@ -71,3 +71,9 @@ body {
 .site-pad {
   padding-inline: clamp(1.5rem, 5vw, 6rem);
 }
+
+/* Consistent vertical breathing room between sections */
+.section-space {
+  padding-top: clamp(5rem, 9vw, 9rem);
+  padding-bottom: clamp(4rem, 7vw, 7rem);
+}

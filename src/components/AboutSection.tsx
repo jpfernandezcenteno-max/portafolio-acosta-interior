@@ -46,7 +46,7 @@ export function AboutSection() {
       </div>
 
       {/* Text below image */}
-      <div className="site-pad py-16 md:py-20">
+      <div className="site-pad section-space">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-end">
 
           <div>

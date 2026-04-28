@@ -28,7 +28,7 @@ export function ContactSection() {
     <footer id="contacto" ref={sectionRef} className="bg-dark">
 
       {/* Main CTA block */}
-      <div className="site-pad pt-24 md:pt-32 pb-16 md:pb-20 border-b border-light/8">
+      <div className="site-pad section-space border-b border-light/8" style={{ paddingBottom: "clamp(4rem, 7vw, 5rem)" }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start">
 
           {/* Left */}

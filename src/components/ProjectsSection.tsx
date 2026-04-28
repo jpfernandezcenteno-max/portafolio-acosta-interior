@@ -57,7 +57,7 @@ export function ProjectsSection() {
   return (
     <>
       <section id="proyectos" ref={sectionRef} className="bg-light">
-        <div className="site-pad pt-24 md:pt-32 pb-20 md:pb-28">
+        <div className="site-pad section-space">
 
           {/* Header */}
           <div className="proj-header mb-12 md:mb-16">
