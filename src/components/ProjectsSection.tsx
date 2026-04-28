@@ -65,7 +65,7 @@ function ProjectCard({
       </div>
 
       {/* Caption */}
-      <div ref={captionRef} className="project-text-reveal mt-4 md:mt-5">
+      <div ref={captionRef} className="project-text-reveal mt-5 md:mt-6 px-1">
         <div className="flex items-baseline gap-0">
           <span
             className="font-serif font-light text-primary leading-none flex-shrink-0"
@@ -169,8 +169,8 @@ export function ProjectsSection() {
         </div>
 
         {/* Project grid */}
-        <div className="max-w-[1440px] mx-auto px-8 md:px-14 lg:px-20 py-16 md:py-24 lg:py-32">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 md:gap-x-7 lg:gap-x-9 gap-y-12 md:gap-y-0 items-end">
+        <div className="w-full px-6 md:px-10 lg:px-14 py-16 md:py-24 lg:py-32">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-6 lg:gap-x-8 gap-y-12 md:gap-y-0 items-end">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.id}
