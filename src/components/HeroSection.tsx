@@ -7,33 +7,33 @@ export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLParagraphElement>(null);
-  const acostaRef = useRef<HTMLSpanElement>(null);
-  const interiorRef = useRef<HTMLSpanElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const titleRef = useRef<HTMLSpanElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      const split = new SplitText(acostaRef.current, { type: "chars" });
+      const split = new SplitText(nameRef.current, { type: "chars" });
 
       const tl = gsap.timeline({ delay: 0.4 });
 
-      tl.from(labelRef.current, { opacity: 0, y: 14, duration: 0.8, ease: "power3.out" })
+      tl.from(labelRef.current, { opacity: 0, y: 12, duration: 0.8, ease: "power3.out" })
         .from(
           split.chars,
           {
             opacity: 0,
-            y: 60,
-            rotationX: -40,
+            y: 55,
+            rotationX: -35,
             transformOrigin: "0% 50% -50",
-            stagger: 0.03,
+            stagger: 0.025,
             duration: 1,
             ease: "power3.out",
           },
           "-=0.4"
         )
-        .from(interiorRef.current, { opacity: 0, y: 12, duration: 0.7, ease: "power3.out" }, "-=0.5")
-        .from(taglineRef.current, { opacity: 0, y: 16, duration: 0.7, ease: "power3.out" }, "-=0.4")
+        .from(titleRef.current, { opacity: 0, y: 10, duration: 0.7, ease: "power3.out" }, "-=0.45")
+        .from(taglineRef.current, { opacity: 0, y: 14, duration: 0.7, ease: "power3.out" }, "-=0.35")
         .from(scrollRef.current, { opacity: 0, duration: 0.6 }, "-=0.2");
 
       gsap.to(".scroll-line-inner", {
@@ -48,7 +48,7 @@ export function HeroSection() {
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
         gsap.to(bgRef.current, {
-          yPercent: 22,
+          yPercent: 20,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -68,42 +68,42 @@ export function HeroSection() {
     <section
       id="inicio"
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden flex items-end justify-start"
+      className="relative h-screen w-full overflow-hidden flex items-center justify-center"
     >
-      {/* Background */}
+      {/* Background — interior design placeholder */}
       <div ref={bgRef} className="absolute inset-0 scale-110">
         <img
-          src="https://picsum.photos/seed/arch-hero/1920/1080"
+          src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80"
           alt=""
           className="w-full h-full object-cover"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-light/72" />
+        <div className="absolute inset-0 bg-light/68" />
       </div>
 
-      {/* Main content — bottom-left */}
-      <div className="relative z-10 site-pad pb-20 md:pb-28 w-full">
+      {/* Centered content */}
+      <div className="relative z-10 text-center px-6 w-full max-w-4xl mx-auto">
         <p
           ref={labelRef}
-          className="font-sans text-[0.55rem] tracking-[0.55em] uppercase text-dark/40 mb-8 md:mb-10"
+          className="font-sans text-[0.52rem] tracking-[0.58em] uppercase text-dark/40 mb-8"
         >
           Lima, Perú
         </p>
 
         <h1 aria-label="Andrea Acosta" className="leading-none select-none">
           <span
-            ref={acostaRef}
+            ref={nameRef}
             className="block font-serif font-light text-dark"
-            style={{ fontSize: "clamp(3.8rem, 11vw, 10.5rem)" }}
+            style={{ fontSize: "clamp(3.6rem, 10.5vw, 10rem)" }}
           >
             Andrea Acosta
           </span>
           <span
-            ref={interiorRef}
-            className="block font-sans font-light text-dark/45 tracking-[0.18em]"
+            ref={titleRef}
+            className="block font-sans font-light text-dark/45 tracking-[0.22em]"
             style={{
-              fontSize: "clamp(0.75rem, 1.4vw, 1.15rem)",
-              marginTop: "clamp(0.6rem, 1.2vw, 1rem)",
+              fontSize: "clamp(0.7rem, 1.3vw, 1.05rem)",
+              marginTop: "clamp(0.7rem, 1.4vw, 1.1rem)",
             }}
           >
             Arquitecta &amp; Diseñadora de Interiores
@@ -112,25 +112,22 @@ export function HeroSection() {
 
         <p
           ref={taglineRef}
-          className="font-sans font-light text-dark/35 mt-8 md:mt-12 tracking-wide max-w-sm"
-          style={{ fontSize: "clamp(0.78rem, 1.1vw, 0.92rem)" }}
+          className="font-sans font-light text-dark/32 mt-10 tracking-wide mx-auto"
+          style={{ fontSize: "clamp(0.76rem, 1vw, 0.9rem)" }}
         >
           Espacios que narran quiénes somos
         </p>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — bottom center */}
       <div
         ref={scrollRef}
-        className="absolute bottom-10 right-6 md:right-12 lg:right-16 flex flex-col items-center gap-3"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
         <div className="w-[1px] h-12 bg-dark/15 overflow-hidden">
-          <div className="scroll-line-inner w-full h-full bg-dark/40 origin-top" />
+          <div className="scroll-line-inner w-full h-full bg-dark/35 origin-top" />
         </div>
-        <span
-          className="font-sans text-[0.46rem] tracking-[0.45em] uppercase text-dark/30"
-          style={{ writingMode: "vertical-rl" }}
-        >
+        <span className="font-sans text-[0.44rem] tracking-[0.48em] uppercase text-dark/28">
           Scroll
         </span>
       </div>
