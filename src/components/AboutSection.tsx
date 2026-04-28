@@ -61,7 +61,7 @@ export function AboutSection() {
       className="bg-light"
     >
       {/* Statement quote — full width */}
-      <div className="px-8 md:px-16 lg:px-24 pt-28 md:pt-40 pb-20 md:pb-28 border-b border-dark/6">
+      <div className="site-pad pt-28 md:pt-40 pb-20 md:pb-28 border-b border-dark/6">
         <p className="about-fade font-sans text-[0.55rem] tracking-[0.52em] uppercase text-primary mb-8 md:mb-12">
           Sobre mí
         </p>
@@ -77,7 +77,7 @@ export function AboutSection() {
       </div>
 
       {/* Bio + Photo */}
-      <div className="px-8 md:px-16 lg:px-24 py-20 md:py-32">
+      <div className="site-pad py-20 md:py-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 lg:gap-36 items-start">
 
           {/* Left — text */}

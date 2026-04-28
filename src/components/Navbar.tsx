@@ -72,7 +72,7 @@ export function Navbar() {
           scrolled ? "bg-light/95 backdrop-blur-md border-b border-dark/6" : "bg-transparent"
         }`}
       >
-        <div className="px-8 md:px-16 lg:px-24 h-16 md:h-[72px] flex items-center justify-between">
+        <div className="site-pad h-16 md:h-[72px] flex items-center justify-between">
           <a
             href="#inicio"
             onClick={(e) => { e.preventDefault(); handleNav("#inicio"); }}
@@ -105,7 +105,7 @@ export function Navbar() {
         aria-hidden={!open}
       >
         {/* Top bar */}
-        <div className="px-8 md:px-16 lg:px-24 h-16 md:h-[72px] flex items-center justify-between flex-shrink-0">
+        <div className="site-pad h-16 md:h-[72px] flex items-center justify-between flex-shrink-0">
           <a
             href="#inicio"
             onClick={(e) => { e.preventDefault(); handleNav("#inicio"); }}
@@ -123,7 +123,7 @@ export function Navbar() {
         </div>
 
         {/* Nav links */}
-        <div className="flex-1 flex items-center px-8 md:px-16 lg:px-24">
+        <div className="flex-1 flex items-center site-pad">
           <ul ref={linksRef} className="space-y-1">
             {links.map(({ label, href, num }) => (
               <li key={href}>
@@ -148,7 +148,7 @@ export function Navbar() {
         </div>
 
         {/* Bottom info */}
-        <div className="px-8 md:px-16 lg:px-24 pb-10 md:pb-14 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 flex-shrink-0">
+        <div className="site-pad pb-10 md:pb-14 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 flex-shrink-0">
           <p className="font-sans text-[0.55rem] tracking-[0.38em] uppercase text-dark/25">
             Estudio de Diseño de Interiores · Lima, Perú
           </p>

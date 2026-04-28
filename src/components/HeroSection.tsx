@@ -82,7 +82,7 @@ export function HeroSection() {
       </div>
 
       {/* Main content — bottom-left */}
-      <div className="relative z-10 px-8 md:px-16 lg:px-24 pb-20 md:pb-28 w-full">
+      <div className="relative z-10 site-pad pb-20 md:pb-28 w-full">
         <p
           ref={labelRef}
           className="font-sans text-[0.55rem] tracking-[0.55em] uppercase text-dark/40 mb-8 md:mb-10"
@@ -122,7 +122,7 @@ export function HeroSection() {
       {/* Scroll indicator */}
       <div
         ref={scrollRef}
-        className="absolute bottom-10 right-8 md:right-16 lg:right-24 flex flex-col items-center gap-3"
+        className="absolute bottom-10 right-6 md:right-12 lg:right-16 flex flex-col items-center gap-3"
       >
         <div className="w-[1px] h-12 bg-dark/15 overflow-hidden">
           <div className="scroll-line-inner w-full h-full bg-dark/40 origin-top" />

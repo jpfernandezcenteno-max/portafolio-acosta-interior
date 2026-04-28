@@ -26,7 +26,7 @@ export function ContactSection() {
 
   return (
     <footer id="contacto" ref={sectionRef} className="bg-secondary">
-      <div className="px-8 md:px-16 lg:px-24 pt-24 md:pt-36 pb-16 md:pb-20">
+      <div className="site-pad pt-24 md:pt-36 pb-16 md:pb-20">
 
         {/* CTA */}
         <p className="contact-fade font-sans text-[0.55rem] tracking-[0.52em] uppercase text-primary mb-10 md:mb-14">

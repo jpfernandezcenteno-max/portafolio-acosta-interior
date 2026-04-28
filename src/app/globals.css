@@ -66,3 +66,8 @@ body {
 .will-animate {
   will-change: transform, opacity;
 }
+
+/* Site-wide horizontal padding — fluid, never zero */
+.site-pad {
+  padding-inline: clamp(1.5rem, 5vw, 6rem);
+}

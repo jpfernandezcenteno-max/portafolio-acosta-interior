@@ -123,7 +123,7 @@ export function ProjectsSection() {
       <section id="proyectos" ref={sectionRef} className="bg-light">
         {/* Header */}
         <div className="projects-header border-b border-dark/6">
-          <div className="px-8 md:px-16 lg:px-24 pt-24 md:pt-32 pb-12 md:pb-14">
+          <div className="site-pad pt-24 md:pt-32 pb-12 md:pb-14">
             <p className="font-sans text-[0.55rem] tracking-[0.52em] uppercase text-primary mb-5">
               Proyectos
             </p>
@@ -142,7 +142,7 @@ export function ProjectsSection() {
         </div>
 
         {/* Grid */}
-        <div className="px-8 md:px-16 lg:px-24 py-16 md:py-24 lg:py-32">
+        <div className="site-pad py-16 md:py-24 lg:py-32">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-5 md:gap-x-8 lg:gap-x-10 gap-y-14 md:gap-y-0 items-end">
             {projects.map((project, index) => (
               <ProjectCard
@@ -156,7 +156,7 @@ export function ProjectsSection() {
         </div>
 
         {/* View all link */}
-        <div className="px-8 md:px-16 lg:px-24 pb-20 md:pb-28 flex justify-center">
+        <div className="site-pad pb-20 md:pb-28 flex justify-center">
           <span className="font-sans text-[0.55rem] tracking-[0.45em] uppercase text-dark/25 border-b border-dark/15 pb-0.5">
             {projects.length} proyectos
           </span>
