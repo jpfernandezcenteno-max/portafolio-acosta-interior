@@ -82,38 +82,38 @@ export function HeroSection() {
       </div>
 
       {/* Main content — bottom-left */}
-      <div className="relative z-10 px-6 md:px-12 lg:px-20 pb-20 md:pb-28 w-full">
+      <div className="relative z-10 px-8 md:px-16 lg:px-24 pb-20 md:pb-28 w-full">
         <p
           ref={labelRef}
           className="font-sans text-[0.55rem] tracking-[0.55em] uppercase text-dark/40 mb-8 md:mb-10"
         >
-          Estudio de Diseño · Lima, Perú
+          Lima, Perú
         </p>
 
-        <h1 aria-label="Acosta Interior" className="leading-none select-none">
+        <h1 aria-label="Andrea Acosta" className="leading-none select-none">
           <span
             ref={acostaRef}
             className="block font-serif font-light text-dark"
-            style={{ fontSize: "clamp(4.5rem, 13vw, 12rem)" }}
+            style={{ fontSize: "clamp(3.8rem, 11vw, 10.5rem)" }}
           >
-            Acosta
+            Andrea Acosta
           </span>
           <span
             ref={interiorRef}
-            className="block font-sans font-light text-dark/50 tracking-[0.6em] uppercase"
+            className="block font-sans font-light text-dark/45 tracking-[0.18em]"
             style={{
-              fontSize: "clamp(0.68rem, 1.7vw, 1.25rem)",
-              marginTop: "clamp(0.3rem, 0.8vw, 0.7rem)",
+              fontSize: "clamp(0.75rem, 1.4vw, 1.15rem)",
+              marginTop: "clamp(0.6rem, 1.2vw, 1rem)",
             }}
           >
-            Interior
+            Arquitecta &amp; Diseñadora de Interiores
           </span>
         </h1>
 
         <p
           ref={taglineRef}
-          className="font-sans font-light text-dark/40 mt-8 md:mt-10 tracking-wide max-w-sm"
-          style={{ fontSize: "clamp(0.78rem, 1.1vw, 0.95rem)" }}
+          className="font-sans font-light text-dark/35 mt-8 md:mt-12 tracking-wide max-w-sm"
+          style={{ fontSize: "clamp(0.78rem, 1.1vw, 0.92rem)" }}
         >
           Espacios que narran quiénes somos
         </p>
@@ -122,7 +122,7 @@ export function HeroSection() {
       {/* Scroll indicator */}
       <div
         ref={scrollRef}
-        className="absolute bottom-10 right-6 md:right-12 lg:right-20 flex flex-col items-center gap-3"
+        className="absolute bottom-10 right-8 md:right-16 lg:right-24 flex flex-col items-center gap-3"
       >
         <div className="w-[1px] h-12 bg-dark/15 overflow-hidden">
           <div className="scroll-line-inner w-full h-full bg-dark/40 origin-top" />
