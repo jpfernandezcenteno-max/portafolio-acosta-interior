@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import { ArrowDown } from "lucide-react";
 
 const SLIDES = [
   "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80",
@@ -17,6 +18,7 @@ export function HeroSection() {
   const rightRefs  = useRef<(HTMLDivElement | null)[]>([]);
   const nameRef    = useRef<HTMLHeadingElement>(null);
   const titleRef   = useRef<HTMLParagraphElement>(null);
+  const ctaRef     = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -43,7 +45,7 @@ export function HeroSection() {
         });
       });
 
-      /* Text entrance */
+      /* Text + CTA entrance */
       const nameSplit = new SplitText(nameRef.current, { type: "chars" });
       const tl = gsap.timeline({ delay: 0.3 });
       tl.from(nameSplit.chars, {
@@ -51,7 +53,13 @@ export function HeroSection() {
           transformOrigin: "0% 50% -50", stagger: 0.025,
           duration: 1, ease: "power3.out",
         })
-        .from(titleRef.current, { opacity: 0, y: 10, duration: 0.7, ease: "power3.out" }, "-=0.4");
+        .from(titleRef.current, { opacity: 0, y: 10, duration: 0.7, ease: "power3.out" }, "-=0.4")
+        .from(ctaRef.current,   { opacity: 0, y: 10, duration: 0.7, ease: "power3.out" }, "-=0.3");
+
+      /* Gentle CTA bounce */
+      gsap.to(ctaRef.current, {
+        y: 6, repeat: -1, yoyo: true, duration: 1.4, ease: "power1.inOut", delay: 1.5,
+      });
 
       /* Slideshow — two-door split */
       let idx = 0;
@@ -64,11 +72,11 @@ export function HeroSection() {
         const prevLeft  = leftRefs.current[prev];
         const prevRight = rightRefs.current[prev];
 
-        /* Place incoming slide behind, reset its scale, start its zoom */
+        /* Incoming slide behind, start its zoom */
         gsap.set(nextSlide, { opacity: 1, zIndex: 0, scale: 1 });
         gsap.to(nextSlide, { scale: 1.08, duration: 9, ease: "power1.inOut" });
 
-        /* Doors open on departing slide */
+        /* Doors slide apart */
         gsap.to(prevLeft,  { x: "-100%", duration: 1.4, ease: "power2.inOut" });
         gsap.to(prevRight, { x: "100%",  duration: 1.4, ease: "power2.inOut",
           onComplete: () => {
@@ -78,7 +86,7 @@ export function HeroSection() {
         });
       };
 
-      const intervalId = setInterval(advance, 5000);
+      const intervalId = setInterval(advance, 5500);
 
       return () => {
         nameSplit.revert();
@@ -88,6 +96,9 @@ export function HeroSection() {
     },
     { scope: sectionRef }
   );
+
+  const scrollToNext = () =>
+    document.querySelector("#proyectos")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section
@@ -101,30 +112,33 @@ export function HeroSection() {
           <div
             key={src}
             ref={el => { slideRefs.current[i] = el; }}
-            className="absolute inset-0 will-change-transform"
+            style={{ position: "absolute", inset: 0 }}
           >
-            {/* Left door — shows left half of image */}
+            {/* Left door — shows left half.
+                Image is 200% wide so object-cover scales against the full
+                viewport width; the door container clips the left 50%. */}
             <div
               ref={el => { leftRefs.current[i] = el; }}
-              className="absolute left-0 inset-y-0 w-1/2 overflow-hidden"
+              style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "50%", overflow: "hidden" }}
             >
               <img
                 src={src}
                 alt=""
-                className="absolute inset-y-0 left-0 w-[200%] h-full object-cover"
+                style={{ position: "absolute", top: 0, left: 0, width: "200%", height: "100%", objectFit: "cover" }}
                 loading={i === 0 ? "eager" : "lazy"}
               />
             </div>
 
-            {/* Right door — shows right half of image */}
+            {/* Right door — same image, anchored right so both imgs share the
+                same full-viewport coordinate frame; door clips the right 50%. */}
             <div
               ref={el => { rightRefs.current[i] = el; }}
-              className="absolute right-0 inset-y-0 w-1/2 overflow-hidden"
+              style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "50%", overflow: "hidden" }}
             >
               <img
                 src={src}
                 alt=""
-                className="absolute inset-y-0 right-0 w-[200%] h-full object-cover"
+                style={{ position: "absolute", top: 0, right: 0, width: "200%", height: "100%", objectFit: "cover" }}
                 loading={i === 0 ? "eager" : "lazy"}
               />
             </div>
@@ -132,7 +146,7 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Dark overlay — above slides, below text */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-dark/40 pointer-events-none" />
 
       {/* Content */}
@@ -151,6 +165,18 @@ export function HeroSection() {
         >
           Estudio de Diseño de Interior
         </p>
+      </div>
+
+      {/* Scroll CTA */}
+      <div
+        ref={ctaRef}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 cursor-pointer"
+        onClick={scrollToNext}
+      >
+        <span className="font-sans text-[0.5rem] tracking-[0.45em] uppercase text-light/50">
+          Ver más
+        </span>
+        <ArrowDown size={13} strokeWidth={1.5} className="text-light/40" />
       </div>
     </section>
   );
