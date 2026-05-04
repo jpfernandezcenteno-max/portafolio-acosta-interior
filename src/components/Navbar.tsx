@@ -55,7 +55,7 @@ export function Navbar() {
             <Link
               key={href}
               href={href}
-              className={`font-sans text-[0.58rem] tracking-[0.32em] uppercase transition-colors duration-200 relative group ${
+              className={`font-sans text-[0.78rem] tracking-[0.28em] uppercase transition-colors duration-200 relative group ${
                 pathname === href ? "text-dark" : "text-dark/50 hover:text-dark"
               }`}
             >
@@ -109,7 +109,7 @@ export function Navbar() {
               key={href}
               href={href}
               onClick={() => setMobileOpen(false)}
-              className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-dark/55 hover:text-dark py-3 border-b border-dark/5 last:border-0 transition-colors duration-200"
+              className="font-sans text-[0.78rem] tracking-[0.25em] uppercase text-dark/55 hover:text-dark py-3 border-b border-dark/5 last:border-0 transition-colors duration-200"
             >
               {label}
             </Link>
