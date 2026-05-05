@@ -7,9 +7,10 @@ import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { Instagram, Linkedin, Menu, X } from "lucide-react";
 
 const LINKS = [
-  { label: "Acerca de mí", href: "/sobre-mi" },
-  { label: "Proyectos",    href: "/proyectos" },
-  { label: "Contacto",     href: "/contacto"  },
+  { label: "Nosotros",  href: "/nosotros"  },
+  { label: "Proyectos", href: "/proyectos" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Contacto",  href: "/contacto"  },
 ];
 
 export function Navbar() {
@@ -50,7 +51,7 @@ export function Navbar() {
         </Link>
 
         {/* Center links — desktop */}
-        <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+        <div className="hidden md:flex items-center gap-7 absolute left-1/2 -translate-x-1/2">
           {LINKS.map(({ label, href }) => (
             <Link
               key={href}

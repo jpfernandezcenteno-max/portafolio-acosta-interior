@@ -71,7 +71,7 @@ export function AboutSection() {
             </p>
             <div className="about-fade">
               <a
-                href="/sobre-mi"
+                href="/nosotros"
                 onMouseEnter={onEnter}
                 onMouseLeave={onLeave}
                 className="group inline-flex items-center gap-3 font-sans text-[0.68rem] tracking-[0.42em] uppercase text-dark/50 hover:text-dark transition-colors duration-300 relative"
