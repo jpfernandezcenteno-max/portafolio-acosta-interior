@@ -147,7 +147,7 @@ export default function ServiciosPage() {
             </h2>
             <Link
               href="/contacto"
-              className="group inline-flex items-center gap-3 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 px-9 py-4 hover:bg-primary hover:border-primary hover:text-light transition-all duration-500 self-start md:self-auto flex-shrink-0"
+              className="group inline-flex items-center gap-3 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 px-14 py-5 hover:bg-primary hover:border-primary hover:text-light transition-all duration-500 self-start md:self-auto flex-shrink-0"
             >
               Solicitar una asesoría
               <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform duration-500" />
