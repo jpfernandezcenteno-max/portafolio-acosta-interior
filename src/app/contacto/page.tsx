@@ -97,12 +97,12 @@ export default function ContactoPage() {
 
         {/* ── Content: form + image ── */}
         <div className="site-pad section-space">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-28 items-start">
 
             {/* Form */}
             <div>
               {status === "success" ? (
-                <div className="py-16 space-y-5">
+                <div className="py-16 space-y-6">
                   <p className="font-sans text-[0.46rem] tracking-[0.48em] uppercase text-primary">
                     Mensaje enviado
                   </p>
@@ -123,7 +123,7 @@ export default function ContactoPage() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-9">
+                <form onSubmit={handleSubmit} className="space-y-14">
 
                   <div className="ct-field">
                     <label className={labelClass}>Nombre completo *</label>
@@ -137,28 +137,27 @@ export default function ContactoPage() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-9">
-                    <div className="ct-field">
-                      <label className={labelClass}>Correo electrónico *</label>
-                      <input
-                        type="email"
-                        required
-                        value={form.correo}
-                        onChange={set("correo")}
-                        placeholder="hola@ejemplo.com"
-                        className={inputClass}
-                      />
-                    </div>
-                    <div className="ct-field">
-                      <label className={labelClass}>Teléfono</label>
-                      <input
-                        type="tel"
-                        value={form.telefono}
-                        onChange={set("telefono")}
-                        placeholder="+51 999 000 000"
-                        className={inputClass}
-                      />
-                    </div>
+                  <div className="ct-field">
+                    <label className={labelClass}>Correo electrónico *</label>
+                    <input
+                      type="email"
+                      required
+                      value={form.correo}
+                      onChange={set("correo")}
+                      placeholder="hola@ejemplo.com"
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <div className="ct-field">
+                    <label className={labelClass}>Teléfono</label>
+                    <input
+                      type="tel"
+                      value={form.telefono}
+                      onChange={set("telefono")}
+                      placeholder="+51 999 000 000"
+                      className={inputClass}
+                    />
                   </div>
 
                   <div className="ct-field">
@@ -179,7 +178,7 @@ export default function ContactoPage() {
                   <div className="ct-field">
                     <label className={labelClass}>Nota adicional</label>
                     <textarea
-                      rows={4}
+                      rows={5}
                       value={form.nota}
                       onChange={set("nota")}
                       placeholder="Cuéntanos brevemente sobre tu espacio, tiempos o cualquier detalle relevante…"
@@ -208,20 +207,19 @@ export default function ContactoPage() {
               )}
             </div>
 
-            {/* Image */}
-            <div
-              className="ct-image overflow-hidden hidden lg:block"
-              style={{
-                height: "clamp(500px, 70vh, 780px)",
-                clipPath: "inset(0 100% 0 0)",
-              }}
-            >
-              <img
-                src="https://picsum.photos/seed/contact-studio/900/1200"
-                alt="Acosta Interior — estudio"
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
+            {/* Image — sticky so it stays in view while scrolling the form */}
+            <div className="hidden md:block" style={{ position: "sticky", top: "88px" }}>
+              <div
+                className="ct-image overflow-hidden"
+                style={{ height: "clamp(480px, 75vh, 820px)", clipPath: "inset(0 100% 0 0)" }}
+              >
+                <img
+                  src="https://picsum.photos/seed/contact-studio/900/1200"
+                  alt="Acosta Interior — estudio"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
             </div>
 
           </div>
