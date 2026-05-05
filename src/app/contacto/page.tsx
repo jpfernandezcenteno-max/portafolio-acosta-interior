@@ -1,19 +1,18 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { CustomCursor } from "@/components/CustomCursor";
 import { Navbar } from "@/components/Navbar";
 import { ArrowRight } from "lucide-react";
 
 const SERVICES = [
-  "Diseño y arquitectura de interiores",
-  "Diseño de mobiliario personalizado",
+  "Diseño de interiores",
+  "Mobiliario personalizado",
   "Styling",
-  "Supervisión de proyectos",
+  "Supervisión de obras",
   "Ejecución de proyectos",
-  "Asesorías integrales",
+  "Asesoría integral",
 ];
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -32,22 +31,20 @@ export default function ContactoPage() {
 
   useGSAP(
     () => {
-      gsap.from(".ct-header", {
-        opacity: 0, y: 20, duration: 1.0, ease: "power2.out", delay: 0.2,
-      });
-      gsap.fromTo(".ct-image",
-        { clipPath: "inset(0 100% 0 0)" },
-        { clipPath: "inset(0 0% 0 0)", duration: 1.6, ease: "power2.inOut", delay: 0.15 }
+      gsap.fromTo(".ct-photo",
+        { clipPath: "inset(0 0 100% 0)" },
+        { clipPath: "inset(0 0 0% 0)", duration: 1.6, ease: "power2.inOut", delay: 0.1 }
       );
-      gsap.from(".ct-field", {
-        opacity: 0, y: 16, stagger: 0.08, duration: 0.9, ease: "power2.out", delay: 0.4,
+      gsap.from(".ct-fade", {
+        opacity: 0, y: 18, stagger: 0.07, duration: 0.9, ease: "power2.out", delay: 0.3,
       });
     },
     { scope: pageRef }
   );
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setForm(f => ({ ...f, [k]: e.target.value }));
+  const set = (k: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm(f => ({ ...f, [k]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,68 +62,124 @@ export default function ContactoPage() {
   };
 
   const inputClass =
-    "w-full bg-transparent border-0 border-b border-dark/20 focus:border-dark outline-none font-sans font-light text-dark text-[0.88rem] leading-none pb-3 pt-1 placeholder:text-dark/30 transition-colors duration-300";
+    "w-full bg-transparent border-0 border-b border-dark/18 focus:border-dark outline-none font-sans font-light text-dark text-[0.88rem] pb-3 pt-1 placeholder:text-dark/28 transition-colors duration-300";
 
-  const labelClass = "font-sans text-[0.58rem] tracking-[0.38em] uppercase text-dark/45 mb-3 block";
+  const labelClass = "font-sans text-[0.52rem] tracking-[0.42em] uppercase text-dark/40 mb-2.5 block";
 
   return (
     <>
       <CustomCursor />
       <Navbar />
-      <div ref={pageRef} className="bg-light min-h-screen">
+      <div ref={pageRef} className="bg-light min-h-screen flex flex-col md:flex-row">
 
-        {/* ── Header ── */}
-        <div className="site-pad section-space border-b border-dark/8">
-          <div className="ct-header grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 items-end">
-            <div>
-              <p className="font-sans text-[0.5rem] tracking-[0.52em] uppercase text-primary mb-4">
-                Hablemos
+        {/* ── Left: photograph ── */}
+        <div className="hidden md:block md:w-[45%] lg:w-[42%] flex-shrink-0 relative" style={{ minHeight: "100vh" }}>
+          <div
+            className="ct-photo sticky top-0 w-full overflow-hidden"
+            style={{ height: "100vh" }}
+          >
+            <img
+              src="https://picsum.photos/seed/contact-studio/900/1400"
+              alt="Acosta Interior — estudio"
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+            {/* Overlay gradient for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent" />
+            {/* Studio label bottom-left */}
+            <div className="absolute bottom-10 left-10">
+              <p className="font-sans text-[0.44rem] tracking-[0.55em] uppercase text-light/60 mb-1">
+                Acosta Interior
               </p>
-              <h1
-                className="font-serif font-light text-dark leading-none"
-                style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
-              >
-                Contacto
-              </h1>
+              <p className="font-sans text-[0.44rem] tracking-[0.45em] uppercase text-light/40">
+                Lima, Perú
+              </p>
             </div>
-            <p className="font-sans font-light text-dark/50 text-[0.88rem] leading-[1.9]">
-              Cuéntanos sobre tu proyecto y te respondemos en menos de 48 horas
-              para agendar una primera conversación.
-            </p>
           </div>
         </div>
 
-        {/* ── Content: form + image ── */}
-        <div className="site-pad section-space">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-28 items-start">
+        {/* ── Right: form ── */}
+        <div className="flex-1 site-pad" style={{ paddingTop: "clamp(6rem, 10vw, 9rem)", paddingBottom: "clamp(4rem, 7vw, 7rem)" }}>
+          <div style={{ maxWidth: "520px" }}>
 
-            {/* Form */}
-            <div>
-              {status === "success" ? (
-                <div className="py-16 space-y-6">
-                  <p className="font-sans text-[0.46rem] tracking-[0.48em] uppercase text-primary">
-                    Mensaje enviado
+            {status === "success" ? (
+              <div className="space-y-6 py-10">
+                <p className="ct-fade font-sans text-[0.48rem] tracking-[0.5em] uppercase text-primary">
+                  Mensaje enviado
+                </p>
+                <p
+                  className="ct-fade font-serif font-light text-dark leading-tight"
+                  style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
+                >
+                  Gracias por escribirnos.
+                </p>
+                <p className="ct-fade font-sans font-light text-dark/50 text-[0.88rem] leading-[1.9]">
+                  Te responderemos a la brevedad para coordinar los próximos pasos.
+                </p>
+                <button
+                  onClick={() => { setStatus("idle"); setForm({ nombre: "", correo: "", telefono: "", servicio: "", nota: "" }); }}
+                  className="font-sans text-[0.58rem] tracking-[0.38em] uppercase text-dark/45 hover:text-dark transition-colors duration-300 underline underline-offset-4"
+                >
+                  Enviar otro mensaje
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+
+                {/* Heading */}
+                <div className="ct-fade mb-12">
+                  <p className="font-sans text-[0.48rem] tracking-[0.52em] uppercase text-primary mb-4">
+                    Hablemos
                   </p>
-                  <p
-                    className="font-serif font-light text-dark leading-tight"
-                    style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
+                  <h1
+                    className="font-serif font-light text-dark leading-none"
+                    style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
                   >
-                    Gracias por escribirnos.
-                  </p>
-                  <p className="font-sans font-light text-dark/50 text-[0.88rem] leading-[1.9]">
-                    Te responderemos a la brevedad para coordinar los próximos pasos.
-                  </p>
-                  <button
-                    onClick={() => { setStatus("idle"); setForm({ nombre: "", correo: "", telefono: "", servicio: "", nota: "" }); }}
-                    className="mt-4 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark/50 hover:text-dark transition-colors duration-300 underline underline-offset-4"
-                  >
-                    Enviar otro mensaje
-                  </button>
+                    Escríbenos
+                  </h1>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "3.5rem" }}>
 
-                  <div className="ct-field">
+                {/* Service radio buttons */}
+                <div className="ct-fade" style={{ marginBottom: "3rem" }}>
+                  <p className={labelClass}>Servicio de interés *</p>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {SERVICES.map(s => (
+                      <label
+                        key={s}
+                        className={`flex items-center gap-3 border px-4 py-3.5 cursor-pointer transition-all duration-200 ${
+                          form.servicio === s
+                            ? "border-dark bg-dark/[0.04]"
+                            : "border-dark/15 hover:border-dark/35"
+                        }`}
+                      >
+                        <span className={`w-3.5 h-3.5 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
+                          form.servicio === s ? "border-dark" : "border-dark/30"
+                        }`}>
+                          {form.servicio === s && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-dark block" />
+                          )}
+                        </span>
+                        <input
+                          type="radio"
+                          name="servicio"
+                          value={s}
+                          checked={form.servicio === s}
+                          onChange={() => setForm(f => ({ ...f, servicio: s }))}
+                          className="sr-only"
+                          required={form.servicio === ""}
+                        />
+                        <span className="font-sans text-[0.66rem] tracking-[0.18em] uppercase text-dark/70 leading-tight">
+                          {s}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Text fields */}
+                <div className="flex flex-col" style={{ gap: "2.8rem" }}>
+
+                  <div className="ct-fade">
                     <label className={labelClass}>Nombre completo *</label>
                     <input
                       type="text"
@@ -138,7 +191,7 @@ export default function ContactoPage() {
                     />
                   </div>
 
-                  <div className="ct-field">
+                  <div className="ct-fade">
                     <label className={labelClass}>Correo electrónico *</label>
                     <input
                       type="email"
@@ -150,7 +203,7 @@ export default function ContactoPage() {
                     />
                   </div>
 
-                  <div className="ct-field">
+                  <div className="ct-fade">
                     <label className={labelClass}>Teléfono</label>
                     <input
                       type="tel"
@@ -161,25 +214,10 @@ export default function ContactoPage() {
                     />
                   </div>
 
-                  <div className="ct-field">
-                    <label className={labelClass}>Servicio de interés *</label>
-                    <select
-                      required
-                      value={form.servicio}
-                      onChange={set("servicio")}
-                      className={`${inputClass} cursor-pointer appearance-none`}
-                    >
-                      <option value="" disabled>Selecciona un servicio</option>
-                      {SERVICES.map(s => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="ct-field">
+                  <div className="ct-fade">
                     <label className={labelClass}>Nota adicional</label>
                     <textarea
-                      rows={5}
+                      rows={4}
                       value={form.nota}
                       onChange={set("nota")}
                       placeholder="Cuéntanos brevemente sobre tu espacio, tiempos o cualquier detalle relevante…"
@@ -189,15 +227,15 @@ export default function ContactoPage() {
 
                   {status === "error" && (
                     <p className="font-sans text-[0.75rem] text-red-500">
-                      Ocurrió un error. Por favor intenta de nuevo o escríbenos directamente.
+                      Ocurrió un error. Por favor intenta de nuevo.
                     </p>
                   )}
 
-                  <div className="ct-field pt-2">
+                  <div className="ct-fade">
                     <button
                       type="submit"
-                      disabled={status === "sending"}
-                      className="group inline-flex items-center gap-3 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 hover:bg-primary hover:border-primary hover:text-light disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
+                      disabled={status === "sending" || !form.servicio}
+                      className="group inline-flex items-center gap-4 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 hover:bg-primary hover:border-primary hover:text-light disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
                       style={{ padding: "1.25rem 4.5rem" }}
                     >
                       {status === "sending" ? "Enviando…" : "Enviar mensaje"}
@@ -205,53 +243,10 @@ export default function ContactoPage() {
                     </button>
                   </div>
 
-                </form>
-              )}
-            </div>
+                </div>
+              </form>
+            )}
 
-            {/* Image — sticky so it stays in view while scrolling the form */}
-            <div className="hidden md:block" style={{ position: "sticky", top: "88px" }}>
-              <div
-                className="ct-image overflow-hidden"
-                style={{ height: "clamp(480px, 75vh, 820px)" }}
-              >
-                <img
-                  src="https://picsum.photos/seed/contact-studio/900/1200"
-                  alt="Acosta Interior — estudio"
-                  className="w-full h-full object-cover"
-                  loading="eager"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* ── Footer info ── */}
-        <div className="site-pad border-t border-dark/8" style={{ paddingTop: "clamp(3rem, 5vw, 5rem)", paddingBottom: "clamp(3rem, 5vw, 5rem)" }}>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-            <div>
-              <p className="font-sans text-[0.46rem] tracking-[0.48em] uppercase text-primary/70 mb-3">Ubicación</p>
-              <p className="font-sans font-light text-dark/55 text-[0.85rem] leading-[1.8]">Lima, Perú</p>
-            </div>
-            <div>
-              <p className="font-sans text-[0.46rem] tracking-[0.48em] uppercase text-primary/70 mb-3">Correo</p>
-              <a
-                href="mailto:jp.fernandez.centeno@gmail.com"
-                className="font-sans font-light text-dark/55 text-[0.85rem] leading-[1.8] hover:text-dark transition-colors duration-300"
-              >
-                jp.fernandez.centeno@gmail.com
-              </a>
-            </div>
-            <div>
-              <p className="font-sans text-[0.46rem] tracking-[0.48em] uppercase text-primary/70 mb-3">Servicios</p>
-              <Link
-                href="/servicios"
-                className="font-sans font-light text-dark/55 text-[0.85rem] leading-[1.8] hover:text-dark transition-colors duration-300"
-              >
-                Ver todos los servicios →
-              </Link>
-            </div>
           </div>
         </div>
 
