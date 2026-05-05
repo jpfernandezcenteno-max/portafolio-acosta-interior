@@ -96,14 +96,14 @@ export function TestimonialsSection() {
             <button
               onClick={prev}
               aria-label="Testimonio anterior"
-              className="w-10 h-10 flex items-center justify-center border border-dark/15 text-dark/40 hover:border-dark hover:text-dark transition-all duration-200"
+              className="w-10 h-10 flex items-center justify-center border border-dark/15 text-dark/40 hover:border-primary hover:text-primary transition-all duration-200"
             >
               <ArrowLeft size={14} strokeWidth={1.5} />
             </button>
             <button
               onClick={next}
               aria-label="Testimonio siguiente"
-              className="w-10 h-10 flex items-center justify-center border border-dark/15 text-dark/40 hover:border-dark hover:text-dark transition-all duration-200"
+              className="w-10 h-10 flex items-center justify-center border border-dark/15 text-dark/40 hover:border-primary hover:text-primary transition-all duration-200"
             >
               <ArrowRight size={14} strokeWidth={1.5} />
             </button>

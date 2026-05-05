@@ -67,7 +67,7 @@ export default function ContactoPage() {
   const inputClass =
     "w-full bg-transparent border-0 border-b border-dark/20 focus:border-dark outline-none font-sans font-light text-dark text-[0.88rem] leading-none pb-3 pt-1 placeholder:text-dark/30 transition-colors duration-300";
 
-  const labelClass = "font-sans text-[0.46rem] tracking-[0.48em] uppercase text-primary/70 mb-2 block";
+  const labelClass = "font-sans text-[0.58rem] tracking-[0.38em] uppercase text-dark/45 mb-3 block";
 
   return (
     <>
@@ -197,7 +197,7 @@ export default function ContactoPage() {
                     <button
                       type="submit"
                       disabled={status === "sending"}
-                      className="group inline-flex items-center gap-3 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 px-7 py-3.5 hover:bg-dark hover:text-light disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
+                      className="group inline-flex items-center gap-3 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 px-9 py-4 hover:bg-primary hover:border-primary hover:text-light disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
                     >
                       {status === "sending" ? "Enviando…" : "Enviar mensaje"}
                       <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform duration-500" />
