@@ -142,23 +142,12 @@ export default function ContactoPage() {
                 {/* Service radio buttons */}
                 <div className="ct-fade" style={{ marginBottom: "3rem" }}>
                   <p className={labelClass}>Servicio de interés *</p>
-                  <div className="grid grid-cols-2 gap-2.5">
+                  <div className="grid grid-cols-2 gap-y-4 gap-x-6">
                     {SERVICES.map(s => (
                       <label
                         key={s}
-                        className={`flex items-center gap-3 border px-4 py-3.5 cursor-pointer transition-all duration-200 ${
-                          form.servicio === s
-                            ? "border-dark bg-dark/[0.04]"
-                            : "border-dark/15 hover:border-dark/35"
-                        }`}
+                        className="flex items-center gap-3 cursor-pointer group"
                       >
-                        <span className={`w-3.5 h-3.5 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
-                          form.servicio === s ? "border-dark" : "border-dark/30"
-                        }`}>
-                          {form.servicio === s && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-dark block" />
-                          )}
-                        </span>
                         <input
                           type="radio"
                           name="servicio"
@@ -166,9 +155,17 @@ export default function ContactoPage() {
                           checked={form.servicio === s}
                           onChange={() => setForm(f => ({ ...f, servicio: s }))}
                           className="sr-only"
-                          required={form.servicio === ""}
                         />
-                        <span className="font-sans text-[0.66rem] tracking-[0.18em] uppercase text-dark/70 leading-tight">
+                        <span className={`w-4 h-4 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
+                          form.servicio === s ? "border-primary" : "border-dark/25 group-hover:border-dark/50"
+                        }`}>
+                          {form.servicio === s && (
+                            <span className="w-2 h-2 rounded-full bg-primary block" />
+                          )}
+                        </span>
+                        <span className={`font-sans text-[0.72rem] tracking-[0.15em] uppercase leading-tight transition-colors duration-200 ${
+                          form.servicio === s ? "text-dark" : "text-dark/45 group-hover:text-dark/70"
+                        }`}>
                           {s}
                         </span>
                       </label>
@@ -235,7 +232,7 @@ export default function ContactoPage() {
                     <button
                       type="submit"
                       disabled={status === "sending" || !form.servicio}
-                      className="group inline-flex items-center gap-4 font-sans text-[0.62rem] tracking-[0.4em] uppercase text-dark border border-dark/25 hover:bg-primary hover:border-primary hover:text-light disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
+                      className="group inline-flex items-center gap-4 font-sans text-[0.62rem] tracking-[0.4em] uppercase bg-primary text-light hover:bg-primary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
                       style={{ padding: "1.25rem 4.5rem" }}
                     >
                       {status === "sending" ? "Enviando…" : "Enviar mensaje"}
