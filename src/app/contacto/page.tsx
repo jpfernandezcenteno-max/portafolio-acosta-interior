@@ -35,9 +35,10 @@ export default function ContactoPage() {
       gsap.from(".ct-header", {
         opacity: 0, y: 20, duration: 1.0, ease: "power2.out", delay: 0.2,
       });
-      gsap.from(".ct-image", {
-        clipPath: "inset(0 100% 0 0)", duration: 1.6, ease: "power2.inOut", delay: 0.15,
-      });
+      gsap.fromTo(".ct-image",
+        { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: "inset(0 0% 0 0)", duration: 1.6, ease: "power2.inOut", delay: 0.15 }
+      );
       gsap.from(".ct-field", {
         opacity: 0, y: 16, stagger: 0.08, duration: 0.9, ease: "power2.out", delay: 0.4,
       });
@@ -123,7 +124,7 @@ export default function ContactoPage() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-14">
+                <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "3.5rem" }}>
 
                   <div className="ct-field">
                     <label className={labelClass}>Nombre completo *</label>
@@ -211,7 +212,7 @@ export default function ContactoPage() {
             <div className="hidden md:block" style={{ position: "sticky", top: "88px" }}>
               <div
                 className="ct-image overflow-hidden"
-                style={{ height: "clamp(480px, 75vh, 820px)", clipPath: "inset(0 100% 0 0)" }}
+                style={{ height: "clamp(480px, 75vh, 820px)" }}
               >
                 <img
                   src="https://picsum.photos/seed/contact-studio/900/1200"
