@@ -10,36 +10,42 @@ import { ArrowRight } from "lucide-react";
 const SERVICES = [
   {
     number: "01",
+    image: "https://picsum.photos/seed/srv-arch/800/450",
     title: "Diseño y arquitectura de interiores",
     description:
       "Gestión completa de reformas, desde la concepción del diseño hasta la ejecución, abarcando obra, instalaciones de iluminación, fontanería y climatización.",
   },
   {
     number: "02",
+    image: "https://picsum.photos/seed/srv-furniture/800/450",
     title: "Diseño de mobiliario personalizado",
     description:
       "Creación y fabricación de piezas exclusivas, gabinetes o estanterías a medida para cada espacio.",
   },
   {
     number: "03",
+    image: "https://picsum.photos/seed/srv-styling/800/450",
     title: "Styling",
     description:
       "Personalización de un espacio mediante la selección y disposición de accesorios, textiles, iluminación y objetos decorativos.",
   },
   {
     number: "04",
+    image: "https://picsum.photos/seed/srv-super/800/450",
     title: "Supervisión de proyectos",
     description:
       "Seguimiento en obra para garantizar que el diseño se ejecute tal como fue concebido, con fidelidad a los materiales y detalles acordados.",
   },
   {
     number: "05",
+    image: "https://picsum.photos/seed/srv-exec/800/450",
     title: "Ejecución de proyectos",
     description:
       "Coordinación de contratistas, proveedores, tiempos y control de costes para asegurar el resultado final dentro del plazo y presupuesto establecidos.",
   },
   {
     number: "06",
+    image: "https://picsum.photos/seed/srv-advisory/800/450",
     title: "Asesorías integrales",
     description:
       "Consultas puntuales por horas para resolver dudas sobre diseño, funcionalidad, decoración, paletas de colores o reordenación de muebles.",
@@ -54,13 +60,13 @@ export default function ServiciosPage() {
       gsap.from(".srv-header", {
         opacity: 0, y: 20, duration: 1.0, ease: "power2.out", delay: 0.2,
       });
-      gsap.from(".srv-row", {
-        opacity: 0, y: 20, stagger: 0.1, duration: 0.9, ease: "power2.out",
-        scrollTrigger: { trigger: ".srv-row", start: "top 86%", once: true },
+      gsap.from(".srv-card", {
+        opacity: 0, y: 28, stagger: 0.12, duration: 0.9, ease: "power2.out",
+        scrollTrigger: { trigger: ".srv-card", start: "top 88%", once: true },
       });
       gsap.from(".srv-cta", {
         opacity: 0, y: 16, duration: 1.0, ease: "power2.out",
-        scrollTrigger: { trigger: ".srv-cta", start: "top 88%", once: true },
+        scrollTrigger: { trigger: ".srv-cta", start: "top 90%", once: true },
       });
     },
     { scope: pageRef }
@@ -93,36 +99,41 @@ export default function ServiciosPage() {
           </div>
         </div>
 
-        {/* ── Services list ── */}
-        <div className="site-pad" style={{ paddingTop: "clamp(3rem, 5vw, 4.5rem)", paddingBottom: "clamp(4rem, 7vw, 7rem)" }}>
-          {SERVICES.map(({ number, title, description }) => (
-            <div
-              key={number}
-              className="srv-row group border-t border-dark/10 last:border-b last:border-dark/10 py-10 md:py-12"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-[4rem_1fr_1.4fr] gap-6 md:gap-12 items-start">
+        {/* ── Cards grid ── */}
+        <div className="site-pad section-space">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+            {SERVICES.map(({ number, image, title, description }) => (
+              <div key={number} className="srv-card group flex flex-col">
 
-                {/* Number */}
-                <span className="font-sans text-[0.48rem] tracking-[0.42em] uppercase text-primary/55 tabular-nums pt-1">
-                  {number}
-                </span>
+                {/* Image */}
+                <div className="overflow-hidden mb-6" style={{ aspectRatio: "16/9" }}>
+                  <img
+                    src={image}
+                    alt={title}
+                    className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
+                </div>
 
-                {/* Title */}
-                <h2
-                  className="font-serif font-light text-dark group-hover:text-primary transition-colors duration-500 leading-tight"
-                  style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)" }}
-                >
-                  {title}
-                </h2>
-
-                {/* Description */}
-                <p className="font-sans font-light text-dark/50 text-[0.87rem] leading-[1.9]">
-                  {description}
-                </p>
+                {/* Content */}
+                <div className="flex flex-col flex-1">
+                  <span className="font-sans text-[0.46rem] tracking-[0.45em] uppercase text-primary/60 tabular-nums mb-3">
+                    {number}
+                  </span>
+                  <h2
+                    className="font-serif font-light text-dark leading-tight mb-4 group-hover:text-primary transition-colors duration-500"
+                    style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}
+                  >
+                    {title}
+                  </h2>
+                  <p className="font-sans font-light text-dark/50 text-[0.84rem] leading-[1.85]">
+                    {description}
+                  </p>
+                </div>
 
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* ── CTA ── */}
