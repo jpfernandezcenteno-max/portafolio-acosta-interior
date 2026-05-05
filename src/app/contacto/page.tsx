@@ -64,7 +64,7 @@ export default function ContactoPage() {
   const inputClass =
     "w-full bg-transparent border-0 border-b border-dark/18 focus:border-dark outline-none font-sans font-light text-dark text-[0.88rem] pb-3 pt-1 placeholder:text-dark/28 transition-colors duration-300";
 
-  const labelClass = "font-sans text-[0.52rem] tracking-[0.42em] uppercase text-dark/40 mb-2.5 block";
+  const labelClass = "font-sans text-[0.52rem] tracking-[0.42em] uppercase text-dark/40";
 
   return (
     <>
@@ -141,8 +141,8 @@ export default function ContactoPage() {
 
                 {/* Service radio buttons */}
                 <div className="ct-fade" style={{ marginBottom: "3rem" }}>
-                  <p className={labelClass}>Servicio de interés *</p>
-                  <div className="grid grid-cols-2 gap-y-4 gap-x-6">
+                  <p className={labelClass} style={{ marginBottom: "0.6rem" }}>Servicio de interés *</p>
+                  <div className="grid grid-cols-2 gap-y-5 gap-x-6">
                     {SERVICES.map(s => (
                       <label
                         key={s}
@@ -157,14 +157,14 @@ export default function ContactoPage() {
                           className="sr-only"
                         />
                         <span className={`w-4 h-4 rounded-full border flex-shrink-0 flex items-center justify-center transition-all duration-200 ${
-                          form.servicio === s ? "border-primary" : "border-dark/25 group-hover:border-dark/50"
+                          form.servicio === s ? "border-primary" : "border-dark/35 group-hover:border-dark/60"
                         }`}>
                           {form.servicio === s && (
                             <span className="w-2 h-2 rounded-full bg-primary block" />
                           )}
                         </span>
-                        <span className={`font-sans text-[0.72rem] tracking-[0.15em] uppercase leading-tight transition-colors duration-200 ${
-                          form.servicio === s ? "text-dark" : "text-dark/45 group-hover:text-dark/70"
+                        <span className={`font-sans text-[0.8rem] tracking-[0.12em] uppercase leading-tight transition-colors duration-200 ${
+                          form.servicio === s ? "text-dark" : "text-dark/60 group-hover:text-dark/85"
                         }`}>
                           {s}
                         </span>
@@ -177,7 +177,7 @@ export default function ContactoPage() {
                 <div className="flex flex-col" style={{ gap: "2.8rem" }}>
 
                   <div className="ct-fade">
-                    <label className={labelClass}>Nombre completo *</label>
+                    <label className={labelClass} style={{ marginBottom: "0.6rem" }}>Nombre completo *</label>
                     <input
                       type="text"
                       required
@@ -189,7 +189,7 @@ export default function ContactoPage() {
                   </div>
 
                   <div className="ct-fade">
-                    <label className={labelClass}>Correo electrónico *</label>
+                    <label className={labelClass} style={{ marginBottom: "0.6rem" }}>Correo electrónico *</label>
                     <input
                       type="email"
                       required
@@ -201,7 +201,7 @@ export default function ContactoPage() {
                   </div>
 
                   <div className="ct-fade">
-                    <label className={labelClass}>Teléfono</label>
+                    <label className={labelClass} style={{ marginBottom: "0.6rem" }}>Teléfono</label>
                     <input
                       type="tel"
                       value={form.telefono}
@@ -212,7 +212,7 @@ export default function ContactoPage() {
                   </div>
 
                   <div className="ct-fade">
-                    <label className={labelClass}>Nota adicional</label>
+                    <label className={labelClass} style={{ marginBottom: "0.6rem" }}>Nota adicional</label>
                     <textarea
                       rows={4}
                       value={form.nota}
@@ -233,7 +233,7 @@ export default function ContactoPage() {
                       type="submit"
                       disabled={status === "sending" || !form.servicio}
                       className="group inline-flex items-center gap-4 font-sans text-[0.62rem] tracking-[0.4em] uppercase bg-primary text-light hover:bg-primary/80 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-500"
-                      style={{ padding: "1.25rem 4.5rem" }}
+                      style={{ padding: "0.9rem 3.5rem" }}
                     >
                       {status === "sending" ? "Enviando…" : "Enviar mensaje"}
                       <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform duration-500" />
